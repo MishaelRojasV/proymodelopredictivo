@@ -1,0 +1,292 @@
+{% extends "plantilla.html" %}
+{% block title %} PREDICCIÓN | Usuarios {% endblock title %}
+
+{% block content %}
+<!-- Estilos -->
+<style>
+    .card-header{
+        color: white;
+        background: #56CCF2;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #56CCF2, #2F80ED);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left,  #56CCF2, #2F80ED);
+    }
+
+    thead, tfoot{
+        background-color: #f0f3f5 !important;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 42px;
+        height: 25px;
+    }
+
+    .switch input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #bab1b1;
+        transition: .4s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 2px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked + .slider {
+        background-color: #2F80ED;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(18px);
+    }
+
+</style>
+<!--  -->
+
+    <div class="p-2">
+        <div class="card m-3">
+            <div class="card-header d-flex ">           
+                <h4 class="card-title pl-3 pt-1" style="font-size: 14px;"><i class="fa-solid fa-bars mr-2"></i><b> LISTADO DE USUARIOS</b></h4>                          
+                {% if perms.appevaluacion.view_doctorado %}
+                <div class="ml-auto pr-4 pt-1">
+                    <a href="{% url 'creacion_usuario' %}" class='btn btn-sm' style="background-color:#e7edf7 ; font-size: 12px;">
+                        <b><i class='fas fa-plus fa-sm'></i> NUEVO</b> 
+                    </a>
+                </div>  
+                {% endif %}          
+            </div> 
+
+            <div class="card-body">           
+                <div class="row">     
+                    <div class="col-lg-7">
+                            <div class="col-lg-1"> 
+                                <label for="selectStatusUSer">Estado:</label> 
+                            </div>  
+                            <div class="col-lg-6">                                                     
+                                <select class="form-control form-control-sm" id="filtroEstado" name="estado">
+                                    <option value="todos">Todos</option>
+                                    <option value="activo">Activos</option>
+                                    <option value="inactivo">Inactivos</option>                           
+                                </select>
+                            </div>   
+                    </div>                     
+                    <div class="col-lg-3"></div>                            
+                    
+
+                </div>                  
+                <hr class="m-3 mb-3">                
+                <!-- Listado -->
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-sm my-3" style="width: 100%;" id="tablausuarios">
+                            <thead>
+                                <tr>                               
+                                    <th >Id</th>
+                                    <th>Nombres</th>                         
+                                    <th>Username</th>
+                                    <th>Correo</th>                                  
+                                    <th>Estado</th>                                  
+                                    <th><center>Opciones</center></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablebody_usuarios">
+
+                            </tbody>                         
+                            <tfoot>
+                                <tr>                               
+                                    <th >Id</th>
+                                    <th>Nombres</th>                         
+                                    <th>Username</th>
+                                    <th>Correo</th>                                  
+                                    <th>Estado</th>                                  
+                                    <th><center>Opciones</center></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>                                    
+            </div>                      
+        </div>    
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Mensaje de exito -->
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                "title": "Éxito",
+                "text":"{{m}}",
+                "icon":"success"
+                })
+                console.log("{{m}}")
+            </script>
+        {% endfor %}
+    {% endif %}
+
+<!-- Datatables -->
+<script>
+        let dataTable;
+        let dataTableIsInitialized = false;
+
+        const dataTableOptions = {        
+            columnDefs: [               
+                { orderable: false, targets: [3, 4, 5]},
+                { searchable: false, targets: [0, 3, 4, 5] }
+            ],
+            pageLength: 10,
+            destroy: true,
+            language:{
+                lengthMenu: "Mostrar _MENU_ registros por página",
+                zeroRecords: "Ningun registro encontrado",
+                info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
+                infoEmpty: "Ningún registro encontrado",
+                infoFiltered: "(filtrados desde _MAX_ registros totales)",
+                search: "Buscar: ",
+                loadingRecords: "Cargando...",
+                paginate:{
+                    first: "Primero",
+                    last: "Ultimo",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            },           
+            layout: {
+                topStart: 'buttons'
+            },
+            buttons:[ { extend: 'copy', text: '<i class="fa-solid fa-copy"></i>', className: 'btn btn-warning', exportOptions:{columns: [':visible']} }, 
+                      { extend: 'excel', text: '<i class="fa-solid fa-file-excel"></i>', className: 'btn btn-success', exportOptions:{columns: [':visible']}},
+                      { extend: 'pdf', text: '<i class="fa-solid fa-file-pdf"></i>', className: 'btn btn-danger', exportOptions:{columns: [':visible']}},
+                      { extend: 'colvis', text: 'Filtrar campos',className: 'btn btn-secundary' }                   
+                    ]    
+                                  
+        };
+
+        const initDataTable = async () => {
+            if (dataTableIsInitialized) {
+                dataTable.destroy();
+            }
+            await listaUsuarios();
+            dataTable = $("#tablausuarios").DataTable(dataTableOptions);
+            dataTableIsInitialized = true;
+        };
+
+
+        const listaUsuarios = async (estado) => {
+            try {
+                const response = await fetch("/usuarios/listar_usuarios_json?estado=" + estado);
+                const data = await response.json();
+                let content = ``;
+                data.usuarios.forEach((item_usuario) => {
+                    const isActive = item_usuario.is_active ? 'checked' : '';
+                    const editUrl = `/usuarios/edit/${item_usuario.id}/`;
+                    content += `
+                        <tr>                            
+                            <td><center>${item_usuario.id}</center></td>                    
+                            <td>${item_usuario.first_name}  ${item_usuario.last_name}</td>                                                           
+                            <td>${item_usuario.username}</td> 
+                            <td>${item_usuario.email}</td>
+                            <td>    
+                                <label class="switch">
+                                    <input type="checkbox" class="status-toggle" data-user-id="${item_usuario.id}" ${isActive}>
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                            <td>
+                                <center>
+                                    <a href="${editUrl}" class="btn btn-sm" style="background-color: #4273b5; color: white;"><i class='fa fa-edit'></i></a>
+                                    <button onclick="eliminarUsuario(${item_usuario.id})" class='btn btn-sm btn-danger'><i class='fa-solid fa-trash-can'></i></button>
+                                </center>
+                            </td>
+                        </tr>`
+                        ;
+                });
+                tablebody_usuarios.innerHTML = content;
+                
+            } catch (ex) {
+                alert(ex);
+            }
+        };
+
+        window.addEventListener("load", async () => {          
+            await initDataTable();
+        });
+
+    </script>
+
+    <!-- Activar/Desactivar Estado -->
+    <script>
+    $(document).ready(function(){
+            $('body').on('change', '.status-toggle', function(){
+                var user_id = $(this).data('user-id');  
+                var is_active = $(this).is(':checked'); 
+
+                $.ajax({
+                    url: '/update-status-user/',
+                    method: 'POST',
+                    data: {
+                        'user_id': user_id,
+                        'is_active': is_active,
+                        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                    },                  
+                    error: function(response) {
+                        alert('Error al cambiar el estado.');
+                    }
+                });
+            });
+        });
+    </script>
+            
+    <!-- Filtrando por estado -->
+    <script>
+        document.getElementById("filtroEstado").addEventListener("change", function() {
+            const estadoSeleccionado = this.value;
+            listaUsuarios(estadoSeleccionado);
+        });
+    </script>
+
+    <!-- Eliminar un usuario -->
+    <script>
+        function eliminarUsuario(id){
+            Swal.fire({
+                title: "¿Realmente deseas eliminar este usuario?",
+                text: "ID del usuario: " + id,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#A19D9C',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'No, cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `/usuarios/delete/${id}/`;
+                }
+            });
+        }
+    </script>
+
+{% endblock js %} 
