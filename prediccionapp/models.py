@@ -1,23 +1,22 @@
+from django.conf import settings
 from django.db import models
-import joblib # type: ignore
-
-
+import numpy as np 
 import joblib
-import numpy as np
+import os
 
 try:
-    model = joblib.load('C:/Users/USER/Desktop/proy-analitica_negocios/proymodelopredictivo/prediccionapp/media/rf_model.joblib')
-    scaler = joblib.load('C:/Users/USER/Desktop/proy-analitica_negocios/proymodelopredictivo/prediccionapp/media/scaler_rf.joblib')  
-    print("Modelo cargado con éxito")
+    model_path = os.path.join(settings.MEDIA_ROOT, 'rf_model.joblib')
+    model = joblib.load(model_path)
 
+    scaler_path = os.path.join(settings.MEDIA_ROOT, 'scaler_rf.joblib')
+    scaler = joblib.load(scaler_path)
 
-
+    print("Modelo y escalador cargados con éxito")
 except Exception as e:
     print(f"Error al cargar o usar el modelo: {e}")
 
+
 # Cargar el modelo y el escalador
-
-
 def predict(data):
     # Escalar los datos
     scaled_data = scaler.transform([data])

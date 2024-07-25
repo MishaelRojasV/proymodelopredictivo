@@ -1,11 +1,4 @@
-# prediccionapp/serializers.py
-
 from rest_framework import serializers
-
-""" class PredictionSerializer(serializers.Serializer):
-    features = serializers.DictField(
-        child=serializers.FloatField()
-    ) """
 
 class PredictionSerializer(serializers.Serializer):
     Genero = serializers.FloatField()

@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from rest_framework.views import APIView 
+from .serializers import PredictionSerializer
 from rest_framework.response import Response 
+from rest_framework.views import APIView 
+from django.shortcuts import render
 from rest_framework import status
 from .models import predict
-from .serializers import PredictionSerializer
-import numpy as np
 
+# Prediccion para el ACV 01 
 class PredictView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = PredictionSerializer(data=request.data)
@@ -22,15 +22,14 @@ class PredictView(APIView):
                 data['EstadoFumador']
             ]
             try:
-                # Realizar la predicción
-                prediction = predict(features)
-                
-                #features_array = np.array([features])
+                prediction = predict(features)                
                 return Response({'prediction': prediction.tolist()})
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+#Form acv01
 def prediction_form(request):
     return render(request, 'form-acv1.html')
