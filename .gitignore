@@ -20,7 +20,6 @@ db.sqlite3
 
 # Archivos de distribución y construcción
 *.egg-info/
-dist/
 build/
 
 # Archivos de prueba y cobertura
