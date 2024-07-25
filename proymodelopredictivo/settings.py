@@ -26,10 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'seguridadapp',
     'prediccionapp',
+    'prediccionapp2',
+    'prediccionapp3',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
-    
 ]
 
 MIDDLEWARE = [
@@ -40,7 +41,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 
@@ -51,8 +51,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [   os.path.join(BASE_DIR, 'seguridadapp/templates'),
                     os.path.join(BASE_DIR, 'proymodelopredictivo/templates'),
-                    os.path.join(BASE_DIR, 'prediccionapp/templates')
-                    
+                    os.path.join(BASE_DIR, 'prediccionapp/templates'),
+                    os.path.join(BASE_DIR, 'prediccionapp2/templates'),
+                    os.path.join(BASE_DIR, 'prediccionapp3/templates')
                 ],
         'APP_DIRS': True,
         'OPTIONS': {

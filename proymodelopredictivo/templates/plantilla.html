@@ -127,12 +127,140 @@
         <a href="{% url 'home' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           &nbsp<i class="fa-solid fa-gauge fa-2xl" style="color: #0dcaf0;"></i>&nbsp &nbsp &nbsp &nbsp
         </a>
+<<<<<<< HEAD
   
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="{% url 'home' %}" class="nav-link px-2 text-secondary">Home</a></li>
           <li><a href="{% url 'listar_usuarios' %}" class="nav-link px-2 text-white">Usuarios</a></li>
           <li><a href="#" class="nav-link px-2 text-white">Reportes</a></li>
           <li><a href="#" class="nav-link px-2 text-white">Acerca</a></li>
+=======
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'home' %}" class="nav-link">Home</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">   
+      <!-- Messages Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <div class="user-panel d-flex">            
+            <div class="info" id="UserLogged-info"></div>
+            <div class="image">
+              <img src="{% static '/adminlte/dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+            </div>
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <a href="" class="dropdown-item">Mi Perfil</a>          
+          <div class="dropdown-divider"></div><a href="{% url 'logout' %}" class="dropdown-item"><i class="fa fa-power-off"></i> Salir</a>          
+        </div>
+      </li>         
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    
+    <!-- Brand Logo -->
+    <a href="" class="brand-link" style="text-decoration: none;">
+      &nbsp &nbsp &nbsp &nbsp<i class="fa-solid fa-gauge fa-xl"></i>
+      <span class="" style="color: #fff;"><b> PREDICTIVE</b></span>
+    </a>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          
+          <!-- Accesos -->
+          <li class="nav-item menu-is-opening menu-open">
+            <a href="#" class="nav-link ">
+              <p style="font-weight: bold;">
+                ACCESOS
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              
+              <li class="nav-item">
+                <a href="" class="nav-link">                  
+                  <i class="nav-icon fas fa-address-card"></i>
+                  <p>
+                    Datos Personales
+                  </p>
+                </a>
+              </li>
+                            
+              <li class="nav-item">
+                <a href="{% url 'listar_usuarios' %}" class="nav-link">                  
+                  <i class="nav-icon fas fa-solid fa-user"></i>
+                  <p>
+                    Usuarios
+                  </p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="nav-icon fa-solid fa-people-line"></i>
+                  <p>
+                    Roles
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="nav-icon fa fa-solid fa-user-gear"></i>
+                  <p>
+                    Permisos
+                  </p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+
+                    <!-- Dashboard -->
+          <li class="nav-item menu-is-opening menu-open">
+            <a href="#" class="nav-link ">
+              <p style="font-weight: bold;">
+                DASHBOARD
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">              
+              <li class="nav-item">
+                <a href="{% url 'prediction_form' %}" class="nav-link">                  
+                  <i class="fas fa-chart-line"></i>
+                  <p>
+                    Predicción
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'prediction2_form' %}" class="nav-link">                  
+                  <i class="fas fa-chart-line"></i>
+                  <p>
+                    Predicción 2
+                  </p>
+                </a>
+              </li>  
+              <li class="nav-item">
+                <a href="{% url 'prediction3_form' %}" class="nav-link">                  
+                  <i class="fas fa-chart-line"></i>
+                  <p>
+                    Predicción 3
+                  </p>
+                </a>
+              </li>          
+          </li>
+          
+>>>>>>> 05377096e41c952157997c4a92eacde9c3751974
         </ul>
   
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
