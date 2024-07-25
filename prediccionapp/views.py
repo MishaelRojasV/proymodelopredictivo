@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .serializers import PredictionSerializer
 from rest_framework.response import Response 
 from rest_framework.views import APIView 
@@ -35,4 +36,6 @@ class PredictView(APIView):
 #Form acv01
 @login_required(login_url='login')
 def prediction_form(request):
-    return render(request, 'form-acv1.html')
+    user = request.user
+    request.session['userName_logged'] = user.get_full_name()
+    return render(request, 'form-acv1.html',{'userNameLogged':request.session['userName_logged']} )

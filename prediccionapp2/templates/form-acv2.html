@@ -1,9 +1,11 @@
 {% extends "plantilla.html" %}
-{% block title %} BUSINESS ANALYTICS | Agregar Usuarios  {% endblock title %}
+{% block title %} IDENTIFICACIÓN DE GRUPOS | Factores Médicos  {% endblock title %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 <style>
     .card-header{       
         color: white;
@@ -20,72 +22,118 @@
         font-weight: 500;
         font-size: 13px;
     }
+    label{
+        color: black;
+    }
+    hr{
+        background-color: black;
+    }
 
 </style>
-<div class="p-1">
+<div class="px-5">
     <div class="card mx-5 my-4 ">
         <div class="card-header">
-            <h4 class="card-title pl-5 pt-2" style="font-size: 14px;"><i class="fa-solid fa-plus mr-2"></i><b> PREDICCIÓN </b></h4>         
+            <h4 class="card-title pl-5 pt-2" style="font-size: 18px;"><i class="fa-solid fa-plus mr-2"></i><b> IDENTIFICACIÓN DE GRUPOS | Factores Médicos </b></h4>         
         </div>       
-        <div class="card-body">            
+        <div class="card-body px-5">            
             <form id="prediction-form">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="Genero">Género</label>
-                    <select class="form-control" id="Genero" name="Genero" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">Femenino</option>
-                        <option value="1">Masculino</option>
-                    </select>
+                <h5 style="color: black;">Datos Personales</h5>
+                <hr style="color: black;">
+                <div class="row">
+                    <div class="col-6 col-sm-5">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control" name="" id="" value="{{userNameLogged}}" disabled>      
+                    </div>
+                    <div class="col-6 col-sm-1"></div>
+                    <div class="col-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="Genero">Género</label>
+                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="Genero" name="Genero" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">Femenino</option>
+                                <option value="1">Masculino</option>
+                            </select>
+                        </div>       
+                    </div>
+                    <div class="col-4 col-sm-2">
+                        <div class="form-group">
+                            <label for="Edad">Edad</label>
+                            <input type="number" class="form-control" id="Edad" name="Edad" step="1" required>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="Edad">Edad</label>
-                    <input type="number" class="form-control" id="Edad" name="Edad" step="1" required>
+                <br>
+                <h5 style="color: black;">Datos Médicos</h5>
+                <hr style="color: black;">
+                
+                <div class="row">
+                    <div class="col-6 col-sm-3">                        
+                        <div class="form-group">
+                            <label for="Hipertension">Hipertensión</label>
+                            <select class="form-control" id="Hipertension" name="Hipertension" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <div class="form-group">
+                            <label for="Cardiopatia">Cardiopatía</label>
+                            <select class="form-control" id="Cardiopatia" name="Cardiopatia" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-2"></div>
+                    <div class="col-6 col-sm-2">
+                        <div class="form-group">
+                            <label for="Nivel_GlucosaPromedio">Nivel de Glucosa</label>
+                            <input type="number" class="form-control" id="Nivel_GlucosaPromedio" name="Nivel_GlucosaPromedio" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-2">
+                        <div class="form-group">
+                            <label for="ICM">ICM</label>
+                            <input type="number" class="form-control" id="ICM" name="ICM"  step="0.01" required>
+                        </div>
+                    </div>                   
                 </div>
 
-                <div class="form-group">
-                    <label for="TipoTrabajo">Tipo de Trabajo</label>
-                    <select class="form-control" id="TipoTrabajo" name="TipoTrabajo" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="1">Trabajador por cuenta propia</option>
-                        <option value="2">Trabajador para el gobierno</option>
-                        <option value="3">Nunca trabajó</option>
-                        <option value="4">Trabajador privado</option>
-                    </select>
+                <br>
+                <h5 style="color: black;">Datos Sociales</h5>
+                <hr style="color: black;">
+                
+                <div class="row">
+                    <div class="col-6 col-sm-5">
+                        <div class="form-group">
+                            <label for="TipoTrabajo">Tipo de Trabajo</label>
+                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="TipoTrabajo" name="TipoTrabajo" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="1">Trabajador por cuenta propia</option>
+                                <option value="2">Trabajador para el gobierno</option>
+                                <option value="3">Nunca trabajó</option>
+                                <option value="4">Trabajador privado</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="Hipertension">Hipertensión</label>
-                    <select class="form-control" id="Hipertension" name="Hipertension" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">No</option>
-                        <option value="1">Sí</option>
-                    </select>
-                </div>
+                <br>
+                <div class="row">
+                    <div class="col-6 col-sm-6">
+                        <button style="width: 100%;" type="button" class="btn btn-primary" onclick="validateForm()">Enviar</button>
+                    </div>
+                    <div class="col-6 col-sm-6">
+                        <a style="width: 100%;" type="button" class="btn btn-secondary" href="{% url 'home' %}">Regresar</a>
+                    </div>
 
-                <div class="form-group">
-                    <label for="Cardiopatia">Cardiopatía</label>
-                    <select class="form-control" id="Cardiopatia" name="Cardiopatia" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">No</option>
-                        <option value="1">Sí</option>
-                    </select>
                 </div>
-
-                <div class="form-group">
-                    <label for="Nivel_GlucosaPromedio">Nivel de Glucosa Promedio</label>
-                    <input type="number" class="form-control" id="Nivel_GlucosaPromedio" name="Nivel_GlucosaPromedio" step="0.01" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="ICM">ICM</label>
-                    <input type="number" class="form-control" id="ICM" name="ICM"  step="0.01" required>
-                </div>
-
-                <button type="button" class="btn btn-primary" onclick="validateForm()">Enviar</button>
             </form>    
-
 
             <div id="result" class="mt-4"></div>
 

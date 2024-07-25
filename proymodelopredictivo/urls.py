@@ -11,8 +11,8 @@ from prediccionapp3.views import PredictView3, prediction_form3
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.home, name='home'),
-    path('login/', views.acceder, name='login'),
+    path('', views.acceder, name='login'),
+    path('home/', views.home, name='home'),
     path('logout/', views.salir, name="logout"),
 
     # Usuarios

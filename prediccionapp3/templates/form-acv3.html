@@ -1,9 +1,11 @@
 {% extends "plantilla.html" %}
-{% block title %} POSGRADO | Agregar Usuarios  {% endblock title %}
+{% block title %} IDENTIFICACIÓN DE GRUPOS | Hábitos {% endblock title %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 <style>
     .card-header{       
         color: white;
@@ -20,91 +22,131 @@
         font-weight: 500;
         font-size: 13px;
     }
+    label{
+        color: black;
+    }
+    hr{
+        background-color: black;
+    }
 
 </style>
-<div class="p-1">
+<div class="px-5">
     <div class="card mx-5 my-4 ">
         <div class="card-header">
-            <h4 class="card-title pl-5 pt-2" style="font-size: 14px;"><i class="fa-solid fa-plus mr-2"></i><b> PREDICCIÓN </b></h4>         
+            <h4 class="card-title pl-5 pt-2" style="font-size: 18px;"><i class="fa-solid fa-plus mr-2"></i><b> IDENTIFICACIÓN DE GRUPOS | Hábitos </b></h4>         
         </div>       
-        <div class="card-body">            
+        <div class="card-body px-5">            
             <form id="prediction-form">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="fumador">Fumador Frecuente</label>
-                    <select class="form-control" id="fumador" name="fumador" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">No</option>
-                        <option value="1">Sí</option>
-                    </select>
+                <h5 style="color: black;">GRUPO</h5>
+                <hr style="color: black;">
+
+                <div class="row">
+                    <div class="col-6 col-sm-4">
+                        <div class="form-group">
+                            <label for="edadRango">Rango de Edad</label>
+                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="edadRango" name="edadRango" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">18-24</option>
+                                <option value="1">25-29</option>
+                                <option value="2">30-34</option>
+                                <option value="3">35-39</option>
+                                <option value="4">40-44</option>
+                                <option value="5">45-49</option>
+                                <option value="6">50-54</option>
+                                <option value="7">55-59</option>
+                                <option value="8">60-64</option>
+                                <option value="9">65-69</option>
+                                <option value="10">70-74</option>
+                                <option value="11">75-79</option>
+                                <option value="12">80 or más</option>
+                            </select>
+                        </div>
+                    </div>    
+                    <div class="col-6 col-sm-2"></div>
+                    <div class="col-6 col-sm-3">
+                        <div class="form-group">
+                            <label for="genero">Género</label>
+                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="genero" name="genero" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">Femenino</option>
+                                <option value="1">Masculino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <div class="form-group">
+                            <label for="etnia">Etnia</label>
+                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="etnia" name="etnia" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">Indígena</option>
+                                <option value="1">Asiático</option>
+                                <option value="2">Negro</option>
+                                <option value="3">Hispano</option>
+                                <option value="5">Blanco</option>
+                                <option value="4">Otro</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="bebedorFrecuente">Bebedor Frecuente</label>
-                    <select class="form-control" id="bebedorFrecuente" name="bebedorFrecuente" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">No</option>
-                        <option value="1">Sí</option>
-                    </select>
+                <h5 style="color: black;">HÁBITOS</h5>
+                <hr style="color: black;">
+
+                <div class="row">
+                    <div class="col-6 col-sm-3">
+                        <div class="form-group">
+                            <label for="fumador">Fumador Frecuente</label>
+                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="fumador" name="fumador" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+                        </div>
+                    </div>    
+
+                    <div class="col-6 col-sm-3">
+                        <div class="form-group">
+                            <label for="bebedorFrecuente">Bebedor Frecuente</label>
+                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="bebedorFrecuente" name="bebedorFrecuente" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-1"></div>
+
+                    <div class="col-6 col-sm-3">
+                        <div class="form-group">
+                            <label for="actividadFisica">Actividad Física Frecuente</label>
+                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="actividadFisica" name="actividadFisica" required>
+                                <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-2">
+                        <div class="form-group">
+                            <label for="horasDormidas">Horas Dormidas c/d</label>
+                            <input type="number" class="form-control" id="horasDormidas" name="horasDormidas" step="1" required>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="form-group">
-                    <label for="actividadFisica">Actividad Física Frecuente</label>
-                    <select class="form-control" id="actividadFisica" name="actividadFisica" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">No</option>
-                        <option value="1">Sí</option>
-                    </select>
+                <br>
+                <div class="row">
+                    <div class="col-6 col-sm-6">
+                        <button style="width: 100%;" type="button" class="btn btn-primary" onclick="validateForm()">Enviar</button>
+                    </div>
+                    <div class="col-6 col-sm-6">
+                        <a style="width: 100%;" type="button" class="btn btn-secondary" href="{% url 'home' %}">Regresar</a>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="horasDormidas">Horas Dormidas c/d</label>
-                    <input type="number" class="form-control" id="horasDormidas" name="horasDormidas" step="1" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="edadRango">Rango de Edad</label>
-                    <select class="form-control" id="edadRango" name="edadRango" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">18-24</option>
-                        <option value="1">25-29</option>
-                        <option value="2">30-34</option>
-                        <option value="3">35-39</option>
-                        <option value="4">40-44</option>
-                        <option value="5">45-49</option>
-                        <option value="6">50-54</option>
-                        <option value="7">55-59</option>
-                        <option value="8">60-64</option>
-                        <option value="9">65-69</option>
-                        <option value="10">70-74</option>
-                        <option value="11">75-79</option>
-                        <option value="12">80 or más</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="genero">Género</label>
-                    <select class="form-control" id="genero" name="genero" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">Femenino</option>
-                        <option value="1">Masculino</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="etnia">Etnia</label>
-                    <select class="form-control" id="etnia" name="etnia" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">Indígena</option>
-                        <option value="1">Asiático</option>
-                        <option value="2">Negro</option>
-                        <option value="3">Hispano</option>
-                        <option value="5">Blanco</option>
-                        <option value="4">Otro</option>
-                    </select>
-                </div>
-
-                <button type="button" class="btn btn-primary" onclick="validateForm()">Enviar</button>
             </form>    
 
             <div id="result" class="mt-4"></div>
