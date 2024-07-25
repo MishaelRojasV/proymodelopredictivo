@@ -1,5 +1,5 @@
 {% extends "plantilla.html" %}
-{% block title %} BUSINESS ANALYTICS | Agregar Usuarios  {% endblock title %}
+{% block title %} POSGRADO | Agregar Usuarios  {% endblock title %}
 
 {% load crispy_forms_tags %}
 
@@ -31,8 +31,60 @@
             <form id="prediction-form">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="Genero">Género</label>
-                    <select class="form-control" id="Genero" name="Genero" required>
+                    <label for="fumador">Fumador Frecuente</label>
+                    <select class="form-control" id="fumador" name="fumador" required>
+                        <option value="" disabled selected>Seleccionar opción</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bebedorFrecuente">Bebedor Frecuente</label>
+                    <select class="form-control" id="bebedorFrecuente" name="bebedorFrecuente" required>
+                        <option value="" disabled selected>Seleccionar opción</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="actividadFisica">Actividad Física Frecuente</label>
+                    <select class="form-control" id="actividadFisica" name="actividadFisica" required>
+                        <option value="" disabled selected>Seleccionar opción</option>
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="horasDormidas">Horas Dormidas c/d</label>
+                    <input type="number" class="form-control" id="horasDormidas" name="horasDormidas" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edadRango">Rango de Edad</label>
+                    <select class="form-control" id="edadRango" name="edadRango" required>
+                        <option value="" disabled selected>Seleccionar opción</option>
+                        <option value="0">18-24</option>
+                        <option value="1">25-29</option>
+                        <option value="2">30-34</option>
+                        <option value="3">35-39</option>
+                        <option value="4">40-44</option>
+                        <option value="5">45-49</option>
+                        <option value="6">50-54</option>
+                        <option value="7">55-59</option>
+                        <option value="8">60-64</option>
+                        <option value="9">65-69</option>
+                        <option value="10">70-74</option>
+                        <option value="11">75-79</option>
+                        <option value="12">80 or más</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="genero">Género</label>
+                    <select class="form-control" id="genero" name="genero" required>
                         <option value="" disabled selected>Seleccionar opción</option>
                         <option value="0">Femenino</option>
                         <option value="1">Masculino</option>
@@ -40,62 +92,20 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Edad">Edad</label>
-                    <input type="number" class="form-control" id="Edad" name="Edad" step="1" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="TipoTrabajo">Tipo de Trabajo</label>
-                    <select class="form-control" id="TipoTrabajo" name="TipoTrabajo" required>
+                    <label for="etnia">Etnia</label>
+                    <select class="form-control" id="etnia" name="etnia" required>
                         <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="1">Trabajador por cuenta propia</option>
-                        <option value="2">Trabajador para el gobierno</option>
-                        <option value="3">Nunca trabajó</option>
-                        <option value="4">Trabajador privado</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="Hipertension">Hipertensión</label>
-                    <select class="form-control" id="Hipertension" name="Hipertension" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">No</option>
-                        <option value="1">Sí</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="Cardiopatia">Cardiopatía</label>
-                    <select class="form-control" id="Cardiopatia" name="Cardiopatia" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="0">No</option>
-                        <option value="1">Sí</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="Nivel_GlucosaPromedio">Nivel de Glucosa Promedio</label>
-                    <input type="number" class="form-control" id="Nivel_GlucosaPromedio" name="Nivel_GlucosaPromedio" step="0.01" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="ICM">ICM</label>
-                    <input type="number" class="form-control" id="ICM" name="ICM"  step="0.01" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="EstadoFumador">Estado de Fumador</label>
-                    <select class="form-control" id="EstadoFumador" name="EstadoFumador" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="1">Anteriormente fumó </option>
-                        <option value="2">Nunca fumó</option>
-                        <option value="3">Fuma</option>
+                        <option value="0">Indígena</option>
+                        <option value="1">Asiático</option>
+                        <option value="2">Negro</option>
+                        <option value="3">Hispano</option>
+                        <option value="5">Blanco</option>
+                        <option value="4">Otro</option>
                     </select>
                 </div>
 
                 <button type="button" class="btn btn-primary" onclick="validateForm()">Enviar</button>
             </form>    
-
 
             <div id="result" class="mt-4"></div>
 
@@ -127,7 +137,7 @@
             let errorMessage = "";
 
             // Check each required field
-            const requiredFields = ['Genero', 'Edad', 'TipoTrabajo', 'Hipertension', 'Cardiopatia', 'Nivel_GlucosaPromedio', 'ICM', 'EstadoFumador'];
+            const requiredFields = ['fumador', 'bebedorFrecuente', 'actividadFisica', 'horasDormidas', 'edadRango', 'genero', 'etnia'];
             requiredFields.forEach(field => {
                 const element = document.getElementById(field);
                 if (!element.value) {
@@ -136,21 +146,11 @@
                 }
             });
 
-            const edad = parseFloat(document.getElementById('Edad').value);
-            const glucosa = parseFloat(document.getElementById('Nivel_GlucosaPromedio').value);
-            const icm = parseFloat(document.getElementById('ICM').value);
+            const horas = parseFloat(document.getElementById('horasDormidas').value);
 
-            if (isNaN(edad) || !Number.isInteger(edad) || edad < 1 || edad > 120) {
+            if (isNaN(horas) || !Number.isInteger(horas) || horas < 1 || horas > 20) {
                 isValid = false;
-                errorMessage += "La edad debe ser un número entero entre 1 y 120.<br>";
-            }
-            if (isNaN(glucosa) || glucosa < 30 || glucosa > 300) {
-                isValid = false;
-                errorMessage += "El nivel de glucosa debe ser un número entre 30 y 300 mg/dL.<br>";
-            }
-            if (isNaN(icm) || icm < 10 || icm > 100) {
-                isValid = false;
-                errorMessage += "El ICM debe ser un número entre 10 y 100.<br>";
+                errorMessage += "Las horas dormidas debe ser un número entero entre 1 y 20.<br>";
             }
 
             if (!isValid) {
@@ -171,7 +171,7 @@
             console.log('Datos a enviar:', data); // Console log para ver los datos
 
         $.ajax({
-                url: 'http://127.0.0.1:8080/api/acv1',
+                url: 'http://127.0.0.1:8080/api/acv3',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(data),
@@ -182,11 +182,11 @@
                     let prediction = response.prediction[0]; 
                     let message;
                     if (prediction === 0) {
-                        message = 'No tiene riesgo de sufrir ACV';
+                        message = 'Pertenece al grupo de precaución mayor';
                     } else if (prediction === 1) {
-                        message = 'Tiene riesgo de sufrir ACV';
+                        message = 'Pertenece al grupo de precaución menor';
                     } else {
-                        message = 'Respuesta inesperada';
+                        message = 'Pertenece al grupo de precaución intermedia';
                     }
                     $('#result').html('<div class="alert alert-success">Predicción: ' + message + '</div>');
                 },
@@ -196,7 +196,5 @@
             }); 
         }
     </script>
-
-
 {% endblock %} 
 

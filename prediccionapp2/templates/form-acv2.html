@@ -83,16 +83,6 @@
                     <input type="number" class="form-control" id="ICM" name="ICM"  step="0.01" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="EstadoFumador">Estado de Fumador</label>
-                    <select class="form-control" id="EstadoFumador" name="EstadoFumador" required>
-                        <option value="" disabled selected>Seleccionar opción</option>
-                        <option value="1">Anteriormente fumó </option>
-                        <option value="2">Nunca fumó</option>
-                        <option value="3">Fuma</option>
-                    </select>
-                </div>
-
                 <button type="button" class="btn btn-primary" onclick="validateForm()">Enviar</button>
             </form>    
 
@@ -127,7 +117,7 @@
             let errorMessage = "";
 
             // Check each required field
-            const requiredFields = ['Genero', 'Edad', 'TipoTrabajo', 'Hipertension', 'Cardiopatia', 'Nivel_GlucosaPromedio', 'ICM', 'EstadoFumador'];
+            const requiredFields = ['Genero', 'Edad', 'TipoTrabajo', 'Hipertension', 'Cardiopatia', 'Nivel_GlucosaPromedio', 'ICM'];
             requiredFields.forEach(field => {
                 const element = document.getElementById(field);
                 if (!element.value) {
@@ -171,7 +161,7 @@
             console.log('Datos a enviar:', data); // Console log para ver los datos
 
         $.ajax({
-                url: 'http://127.0.0.1:8080/api/acv1',
+                url: 'http://127.0.0.1:8080/api/acv2',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(data),
@@ -182,11 +172,11 @@
                     let prediction = response.prediction[0]; 
                     let message;
                     if (prediction === 0) {
-                        message = 'No tiene riesgo de sufrir ACV';
+                        message = 'Pertenece al grupo de precaución mayor';
                     } else if (prediction === 1) {
-                        message = 'Tiene riesgo de sufrir ACV';
+                        message = 'Pertenece al grupo de precaución menor';
                     } else {
-                        message = 'Respuesta inesperada';
+                        message = 'Pertenece al grupo de precaución intermedia';
                     }
                     $('#result').html('<div class="alert alert-success">Predicción: ' + message + '</div>');
                 },
@@ -199,4 +189,3 @@
 
 
 {% endblock %} 
-
