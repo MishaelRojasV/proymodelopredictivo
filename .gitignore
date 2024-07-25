@@ -15,8 +15,6 @@ __pycache__/
 db.sqlite3
 
 # Archivos y carpetas generados automáticamente
-/media
-/static
 
 # Archivos de distribución y construcción
 *.egg-info/
