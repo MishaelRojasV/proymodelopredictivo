@@ -1,0 +1,131 @@
+{% extends "plantilla.html" %}
+{% block title %} POSGRADO | Agregar Usuarios  {% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    .card-header{       
+        color: white;
+        background: #56CCF2;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #56CCF2, #2F80ED);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left,  #56CCF2, #2F80ED);
+    }
+
+    input[name="username"],[name="password"], [name="first_name"], [name="last_name"],[name="email"]
+    {
+        height: 30px;
+        font-family: "Red Hat Display", sans-serif;       
+        font-optical-sizing: auto;
+        font-weight: 500;
+        font-size: 13px;
+    }
+
+</style>
+<div class="p-1">
+    <div class="card mx-5 my-4 ">
+        <div class="card-header">
+            <h4 class="card-title pl-5 pt-2" style="font-size: 14px;"><i class="fa-solid fa-plus mr-2"></i><b> PREDICCIÓN </b></h4>         
+        </div>       
+        <div class="card-body">            
+            <form id="prediction-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Genero">Género</label>
+                    <input type="number" class="form-control" id="Genero" name="Genero" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Edad">Edad</label>
+                    <input type="number" class="form-control" id="Edad" name="Edad" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="TipoTrabajo">Tipo de Trabajo</label>
+                    <input type="number" class="form-control" id="TipoTrabajo" name="TipoTrabajo" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Hipertension">Hipertensión</label>
+                    <input type="number" class="form-control" id="Hipertension" name="Hipertension" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Cardiopatia">Cardiopatía</label>
+                    <input type="number" class="form-control" id="Cardiopatia" name="Cardiopatia" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Nivel_GlucosaPromedio">Nivel de Glucosa Promedio</label>
+                    <input type="number" class="form-control" id="Nivel_GlucosaPromedio" name="Nivel_GlucosaPromedio" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ICM">ICM</label>
+                    <input type="number" class="form-control" id="ICM" name="ICM" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="EstadoFumador">Estado de Fumador</label>
+                    <input type="number" class="form-control" id="EstadoFumador" name="EstadoFumador" step="any" required>
+                </div>
+
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Enviar</button>
+            </form>    
+
+
+            <div id="result" class="mt-4"></div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block js %}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                "title": "Warning",
+                "text":"{{m}}",
+                "icon":"info"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('prediction-form');
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            console.log('Datos a enviar:', data); // Console log para ver los datos
+
+        $.ajax({
+                url: 'http://127.0.0.1:8000/api/acv1',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    $('#result').html('<div class="alert alert-success">Predicción: ' + response.prediction + '</div>');
+                },
+                error: function(xhr) {
+                    $('#result').html('<div class="alert alert-danger">Error: ' + xhr.responseJSON.error + '</div>');
+                }
+            }); 
+        }
+    </script>
+
+
+{% endblock %} 
+
