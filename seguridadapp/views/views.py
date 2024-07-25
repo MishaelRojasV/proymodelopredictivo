@@ -37,9 +37,9 @@ def acceder(request):
     return render(request, "login.html", {"form": form})
 
 #Funcion para mostrar la vista "Home"
-@login_required(login_url='login')
+
 def home(request):
-    return render(request, "home.html",{'userNameLogged':request.session['userName_logged'],'userLogged':request.session['user_logged']})
+    return render(request, "home.html")
 
 #Funcion para "cerrar sesion"
 @login_required(login_url='login')

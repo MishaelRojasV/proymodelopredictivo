@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from .serializers import PredictionSerializer
 from rest_framework.response import Response 
 from rest_framework.views import APIView 
@@ -6,6 +7,7 @@ from rest_framework import status
 from .models import predict
 
 # Prediccion para el ACV 01 
+
 class PredictView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = PredictionSerializer(data=request.data)
@@ -31,5 +33,6 @@ class PredictView(APIView):
 
 
 #Form acv01
+@login_required(login_url='login')
 def prediction_form(request):
     return render(request, 'form-acv1.html')

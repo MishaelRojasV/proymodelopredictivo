@@ -9,8 +9,8 @@ from prediccionapp.views import PredictView, prediction_form
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.acceder, name='login'),
-    path('home/', views.home, name='home'),
+    path('', views.home, name='home'),
+    path('login/', views.acceder, name='login'),
     path('logout/', views.salir, name="logout"),
 
     # Usuarios

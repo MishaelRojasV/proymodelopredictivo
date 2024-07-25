@@ -7,8 +7,8 @@
 <style>
     .card-header{       
         color: white;
-        background: #56CCF2;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to left, #56CCF2, #2F80ED);  /* Chrome 10-25, Safari 5.1-6 */
+        background: #56CCF2; 
+        background: -webkit-linear-gradient(to left, #56CCF2, #2F80ED);
         background: linear-gradient(to left,  #56CCF2, #2F80ED);
     }
 
@@ -27,7 +27,7 @@
         <div class="card-header">
             <h4 class="card-title pl-5 pt-2" style="font-size: 14px;"><i class="fa-solid fa-plus mr-2"></i><b> PREDICCIÓN </b></h4>         
         </div>       
-        <div class="card-body">            
+        <div class="card-body" >            
             <form id="prediction-form">
                 {% csrf_token %}
                 <div class="form-group">
