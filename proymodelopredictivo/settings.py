@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'seguridadapp',
+    'prediccionapp',
     'crispy_forms',
     'crispy_bootstrap4',
+    'rest_framework',
+    
 ]
 
 MIDDLEWARE = [
@@ -52,7 +55,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
+
 
 ROOT_URLCONF = 'proymodelopredictivo.urls'
 
@@ -60,7 +65,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [   os.path.join(BASE_DIR, 'seguridadapp/templates'),
-                    os.path.join(BASE_DIR, 'proymodelopredictivo/templates')
+                    os.path.join(BASE_DIR, 'proymodelopredictivo/templates'),
+                    os.path.join(BASE_DIR, 'prediccionapp/templates')
+                    
                 ],
         'APP_DIRS': True,
         'OPTIONS': {
