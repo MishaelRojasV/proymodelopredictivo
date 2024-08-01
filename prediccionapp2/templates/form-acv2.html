@@ -114,10 +114,10 @@
                             <label for="TipoTrabajo">Tipo de Trabajo</label>
                             <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="TipoTrabajo" name="TipoTrabajo" required>
                                 <option value="" disabled selected>Seleccionar opción</option>
-                                <option value="1">Trabajador por cuenta propia</option>
-                                <option value="2">Trabajador para el gobierno</option>
-                                <option value="3">Nunca trabajó</option>
-                                <option value="4">Trabajador privado</option>
+                                <option value="0">Trabajador para el gobierno</option>
+                                <option value="1">Nunca trabajó</option>
+                                <option value="2">Trabajador privado</option>
+                                <option value="3">Trabajador por cuenta propia</option>
                             </select>
                         </div>
                     </div>
@@ -219,9 +219,9 @@
                 success: function(response) {
                     let prediction = response.prediction[0]; 
                     let message;
-                    if (prediction === 0) {
+                    if (prediction === 2) {
                         message = 'Pertenece al grupo de precaución mayor';
-                    } else if (prediction === 1) {
+                    } else if (prediction === 0) {
                         message = 'Pertenece al grupo de precaución menor';
                     } else {
                         message = 'Pertenece al grupo de precaución intermedia';
