@@ -17,9 +17,9 @@ class PredictView(APIView):
             features = [
                 data['Genero'],
                 data['Edad'],
-                data['TipoTrabajo'],
                 data['Hipertension'],
                 data['Cardiopatia'],
+                data['TipoTrabajo'],
                 data['Nivel_GlucosaPromedio'],
                 data['ICM'],
                 data['EstadoFumador']

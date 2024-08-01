@@ -9,64 +9,49 @@
             <!-- <h2 class="pb-2 border-bottom">Custom cards</h2> -->
         
             <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-            
+
                 <div class="col">
-                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('{% static 'login/images/acv11.png' %}'); background-size: cover; background-position: center;">
-                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Predicción de Riesgo</h3>
-                            <ul class="d-flex list-unstyled mt-auto">
-                                <li class="me-auto">
-                                <img src="{% static 'login/images/acv1.jpeg'%}" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                                </li>                               
-                            </ul>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="" style="color: #fff; font-size: 1.5em;"><i class="fa-solid fa-user-tag fa-lg"></i> # </small>
-                                <div class="btn-group">
-                                    <a href="{% url 'prediction_form' %}" type="button" class="btn btn-warning"><b >Hacer Test</b></a>
-                                </div>                                
+                    <div class="card shadow-sm" style="background-color: #fff; color: black;">
+                        <img src="{% static 'login/images/obj1.png'%}"  width="100%" height="225"  alt="Bootstrap" width="32" height="32" class="" style="background-color: #fff;">
+
+                        <div class="card-body">
+                            <h4 class=" display-8 lh-1 fw-bold" style="color: #1E88E5;">Diagnóstico de ACV</h4>
+                            <p class="card-text">Diagnóstico rápido realizado mediante machine learning.</p>
+                            <div class="d-flex justify-content-end align-items-center">     
+                                <a href="{% url 'prediction_form' %}" type="button" class="btn" style="color: #fff; background-color: #1E88E5;">Continuar</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                
                 <div class="col">
-                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('{% static 'login/images/acv22.jpg' %}'); background-size: cover; background-position: center;">
-                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Identificación de grupos | Riesgos médicos</h3>
-                            <ul class="d-flex list-unstyled mt-auto">
-                                <li class="me-auto">
-                                <img src="{% static 'login/images/acv2.jpg'%}" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                                </li>                               
-                            </ul>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="" style="color: #fff; font-size: 1.5em;"><i class="fa-solid fa-user-tag fa-lg"></i> # </small>
-                                <div class="btn-group">
-                                    <a href="{% url 'prediction2_form' %}" type="button" class="btn btn-warning"><b >Hacer Test</b></a>
-                                    <!-- <button type="button" class="btn btn-warning" ><b >Hacer Test</b></button> -->
-                                </div>                                
+                    <div class="card shadow-sm" style="background-color: #fff; color: black;">
+                        <img src="{% static 'login/images/obj2.png'%}"  width="100%" height="225"  alt="Bootstrap" width="32" height="32" class="" style="background-color: #fff;">
+
+                        <div class="card-body">
+                            <h4 class=" display-8 lh-1 fw-bold" style="color: #1E88E5;">Segmentación de pacientes</h4>
+                            <p class="card-text">Los pacientes son clasificados según su estilo de vida.</p>
+                            <div class="d-flex justify-content-end align-items-center">     
+                                <a href="{% url 'prediction2_form' %}" type="button" class="btn" style="color: #fff; background-color: #1E88E5;">Continuar</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="col">
-                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('{% static 'login/images/acv33.png' %}'); background-size: cover; background-position: center;">
-                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Identificación de grupos | Hábitos</h3>
-                            <ul class="d-flex list-unstyled mt-auto">
-                                <li class="me-auto">
-                                <img src="{% static 'login/images/acv33.png'%}" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                                </li>                               
-                            </ul>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="" style="color: #fff; font-size: 1.5em;"><i class="fa-solid fa-user-tag fa-lg"></i> # </small>
-                                <div class="btn-group">
-                                    <a href="{% url 'prediction3_form' %}" type="button" class="btn btn-warning"><b >Hacer Test</b></a>
-                                </div>                                
+                    <div class="card shadow-sm" style="background-color: #fff; color: black;">
+                        <img src="{% static 'login/images/obj3.png'%}"  width="100%" height="225"  alt="Bootstrap" width="32" height="32" class="" style="background-color: #fff;">
+
+                        <div class="card-body">
+                            <h4 class=" display-8 lh-1 fw-bold" style="color: #1E88E5;">Segmentación de pacientes</h4>
+                            <p class="card-text">Los pacientes son clasificados según sus factores medicos</p>
+                            <div class="d-flex justify-content-end align-items-center">     
+                                <a href="{% url 'prediction3_form' %}" type="button" class="btn" style="color: #fff; background-color: #1E88E5;">Continuar</a>
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
                     
             </div>
         </div>

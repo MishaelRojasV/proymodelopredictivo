@@ -98,6 +98,7 @@
                             <label for="EstadoFumador">Estado de Fumador</label>
                             <select class="form-control" id="EstadoFumador" name="EstadoFumador" required>
                                 <option value="" disabled selected>Seleccionar opción</option>
+                                <option value="0">No opina</option>
                                 <option value="1">Anteriormente fumó </option>
                                 <option value="2">Nunca fumó</option>
                                 <option value="3">Fuma</option>
@@ -116,10 +117,10 @@
                             <label for="TipoTrabajo">Tipo de Trabajo</label>
                             <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="TipoTrabajo" name="TipoTrabajo" required>
                                 <option value="" disabled selected>Seleccionar opción</option>
-                                <option value="1">Trabajador por cuenta propia</option>
-                                <option value="2">Trabajador para el gobierno</option>
-                                <option value="3">Nunca trabajó</option>
-                                <option value="4">Trabajador privado</option>
+                                <option value="0">Trabajador para el gobierno</option>
+                                <option value="1">Nunca trabajó</option>
+                                <option value="2">Trabajador privado</option>
+                                <option value="3">Trabajador por cuenta propia</option>
                             </select>
                         </div>
                     </div>
@@ -225,12 +226,15 @@
                     let message;
                     if (prediction === 0) {
                         message = 'No tiene riesgo de sufrir ACV';
+                        $('#result').html('<div class="alert alert-success"> <b>Predicción: </b>' + message + '</div>');
                     } else if (prediction === 1) {
                         message = 'Tiene riesgo de sufrir ACV';
+                        $('#result').html('<div class="alert alert-danger"> <b>Predicción: </b>' + message + '</div>');
                     } else {
                         message = 'Respuesta inesperada';
+                        $('#result').html('<div class="alert alert-info"> <b>Predicción: </b>' + message + '</div>');
                     }
-                    $('#result').html('<div class="alert alert-success"> <b>Predicción: </b>' + message + '</div>');
+                    
                 },
                 error: function(xhr) {
                     $('#result').html('<div class="alert alert-danger">Error: ' + xhr.responseJSON.error + '</div>');
