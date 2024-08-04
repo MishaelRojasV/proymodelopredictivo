@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
+    'rest_framework.authtoken',
+    'coreapi',
 ]
 
 MIDDLEWARE = [
@@ -146,4 +148,8 @@ MESSAGE_TAGS = {
     message_constants.SUCCESS:'success',
     message_constants.WARNING:'warning',
     message_constants.ERROR:'danger',
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
