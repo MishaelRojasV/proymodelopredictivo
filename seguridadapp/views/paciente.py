@@ -11,7 +11,7 @@ def register_paciente(request):
     if serializer.is_valid():
         paciente = serializer.save()
         token = Token.objects.get(user=paciente.user)
-        return Response({'token': token.key, 'user': serializer.data['user'], 'paciente': serializer.data, "message": "Usuario y paciente registrados exitosamente"}, status=status.HTTP_201_CREATED)
+        return Response({'token': token.key, 'user': serializer.data['user'], 'paciente': serializer.data, "message": "Registro exitoso."}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])

@@ -2,6 +2,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+from django.utils import timezone
 
 # Tabla de "Paciente"
 class Paciente(models.Model):
@@ -46,7 +47,7 @@ class Diagnostico(models.Model):
     estadoFumador = models.CharField(max_length=200)
     tipoTrabajo = models.CharField(max_length=200)
     prediccion = models.BooleanField(default= False, null=True, blank=True)
-    fechaRegistro = models.DateField(default= datetime.datetime.now())
+    fechaRegistro = models.DateField(default=timezone.now)
 
     def __str__(self):
         return f'{self.idDiagnostico}'
