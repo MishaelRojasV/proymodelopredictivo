@@ -10,16 +10,24 @@ from seguridadapp.views import views
 from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
+    #Documentacion
     path('documentacion/', include_docs_urls(title='Api Documentation')),
-    
+
+    #administrador
     path('admin/', admin.site.urls),
+    
+    #Cuenta
     path('login/', views.login),
-    #path('register/', views.register),
+    path('logout/', views.logout),
+
+    #Paciente
     path('paciente/', include('seguridadapp.routes.paciente')),
 
+    
 
-    path('profile/', views.profile),
 
+
+    #Prediccion
     path('api/acv1', PredictView.as_view(),name="acv1"),    
     path('prediccion/', prediction_form, name='prediction_form'),
 

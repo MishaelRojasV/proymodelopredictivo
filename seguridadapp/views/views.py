@@ -1,4 +1,5 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from seguridadapp.serializers import UserSerializer, PacienteSerializer
 from django.contrib.auth.models import User
@@ -21,3 +22,13 @@ def login(request):
 @api_view(['POST'])
 def profile(request):
     return Response({})
+
+@api_view(['POST',])
+#@permission_classes([IsAuthenticated])
+def logout(request):
+    try:
+        # Obtener el token del usuario autenticado y eliminarlo
+        request.user.auth_token.delete()
+        return Response({"message": "Cierre de sesión exitoso"}, status=status.HTTP_200_OK)
+    except AttributeError:
+        return Response({"error": "El usuario no tiene un token de autenticación"}, status=status.HTTP_400_BAD_REQUEST)
