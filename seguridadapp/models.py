@@ -40,14 +40,14 @@ class Medico(models.Model):
 class Diagnostico(models.Model):    
     idDiagnostico = models.AutoField(primary_key=True)
     idPaciente = models.ForeignKey(Paciente, on_delete = models.CASCADE)
-    Genero = models.FloatField(max_length=200, null=True, blank=True)
-    Edad = models.FloatField(max_length=200, null=True, blank=True)
+    Genero = models.CharField(max_length=200, null=True, blank=True)
+    Edad = models.IntegerField(null=True, blank=True)
     Hipertension = models.FloatField(default= False)
     Cardiopatia = models.FloatField(default= False)
     Nivel_GlucosaPromedio = models.FloatField(validators=[MinValueValidator(30.0), MaxValueValidator(300.0)])
     ICM = models.FloatField(validators=[MinValueValidator(10.0), MaxValueValidator(100.0)])
-    EstadoFumador = models.FloatField(max_length=200)
-    TipoTrabajo = models.FloatField(max_length=200)
+    EstadoFumador = models.CharField(max_length=200)
+    TipoTrabajo = models.CharField(max_length=200)
     prediccion = models.FloatField(default= False, null=True, blank=True)
     fechaRegistro = models.DateField(default=timezone.now)
 

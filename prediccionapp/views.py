@@ -59,23 +59,43 @@ def create_diagnostico(request):
             'EstadoFumador': serializer.validated_data.get('EstadoFumador', 0)
         }
 
+        print(data)
+
+        if data['TipoTrabajo'] == 0:
+            tipo_trabajo = 'Trabajador para el gobierno'
+        elif data['TipoTrabajo'] == 1:
+            tipo_trabajo = 'Nunca trabajó'
+        elif data['TipoTrabajo'] == 2:
+            tipo_trabajo = 'Trabajador privado'
+        elif data['TipoTrabajo'] == 3:
+            tipo_trabajo = 'Trabajador por cuenta propia'
+            
+        if data['EstadoFumador'] == 0:
+            estado_fumador = 'No opina'
+        elif data['EstadoFumador'] == 1:
+            estado_fumador = 'Anteriormente fumó'
+        elif data['EstadoFumador'] == 2:
+            estado_fumador = 'Nunca fumó'
+        elif data['EstadoFumador'] == 3:
+            estado_fumador = 'Fuma'
+
         # Create the Diagnostico instance
         diagnostico = Diagnostico(
             idPaciente=paciente,
-            Genero=data['Genero'],
+            Genero=paciente.genero,
             Edad=data['Edad'],
             Hipertension=data['Hipertension'],
             Cardiopatia=data['Cardiopatia'],
-            TipoTrabajo=data['TipoTrabajo'],
+            TipoTrabajo=tipo_trabajo,
             Nivel_GlucosaPromedio=data['Nivel_GlucosaPromedio'],
             ICM=data['ICM'],
-            EstadoFumador=data['EstadoFumador']
+            EstadoFumador=estado_fumador
         )
         
-        # Save the Diagnostico instance (without prediction initially)
+        #Guardar el diagnostico
         diagnostico.save()
 
-        # Prepare the data for prediction
+        # Data para la prediccion
         prediction_data = [
             data['Genero'],
             data['Edad'],
@@ -87,10 +107,10 @@ def create_diagnostico(request):
             data['EstadoFumador']
         ]
 
-        # Perform the prediction
+        # Prediccion
         prediction = predict(prediction_data)
         
-        # Update the Diagnostico instance with the prediction
+        # Actualizar el diagnotico con la prediccion
         diagnostico.prediccion = prediction
         diagnostico.save()
 
