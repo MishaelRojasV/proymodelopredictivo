@@ -36,17 +36,19 @@ class Medico(models.Model):
     def __str__(self):
         return f'{self.nombres} {self.apPaterno} {self.apMaterno}'
     
-# Tabla de "Diagnostico"
-class Diagnostico(models.Model):
+    
+class Diagnostico(models.Model):    
     idDiagnostico = models.AutoField(primary_key=True)
     idPaciente = models.ForeignKey(Paciente, on_delete = models.CASCADE)
-    hipertension = models.BooleanField(default= False)
-    cardiopatia = models.BooleanField(default= False)
-    nivelGlucosa = models.FloatField(validators=[MinValueValidator(30.0), MaxValueValidator(300.0)])
-    icm = models.FloatField(validators=[MinValueValidator(10.0), MaxValueValidator(100.0)])
-    estadoFumador = models.CharField(max_length=200)
-    tipoTrabajo = models.CharField(max_length=200)
-    prediccion = models.BooleanField(default= False, null=True, blank=True)
+    Genero = models.CharField(max_length=200, null=True, blank=True)
+    Edad = models.IntegerField(null=True, blank=True)
+    Hipertension = models.FloatField(default= False)
+    Cardiopatia = models.FloatField(default= False)
+    Nivel_GlucosaPromedio = models.FloatField(validators=[MinValueValidator(30.0), MaxValueValidator(300.0)])
+    ICM = models.FloatField(validators=[MinValueValidator(10.0), MaxValueValidator(100.0)])
+    EstadoFumador = models.CharField(max_length=200)
+    TipoTrabajo = models.CharField(max_length=200)
+    prediccion = models.FloatField(default= False, null=True, blank=True)
     fechaRegistro = models.DateField(default=timezone.now)
 
     def __str__(self):

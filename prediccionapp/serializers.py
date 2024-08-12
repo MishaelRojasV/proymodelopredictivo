@@ -1,11 +1,20 @@
+from seguridadapp.models import Diagnostico
+from rest_framework import serializers
+from datetime import date
 from rest_framework import serializers
 
-class PredictionSerializer(serializers.Serializer):
-    Genero = serializers.FloatField()
-    Edad = serializers.FloatField()
+
+class DiagnosticoSerializer(serializers.Serializer):
     Hipertension = serializers.FloatField()
     Cardiopatia = serializers.FloatField()
-    TipoTrabajo = serializers.FloatField()
+    TipoTrabajo = serializers.IntegerField()
     Nivel_GlucosaPromedio = serializers.FloatField()
     ICM = serializers.FloatField()
-    EstadoFumador = serializers.FloatField()
+    EstadoFumador = serializers.IntegerField() 
+
+""" class DiagnosticoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Diagnostico
+        fields = ['Genero', 'Edad', 'Hipertension', 'Cardiopatia', 'TipoTrabajo', 'Nivel_GlucosaPromedio', 'ICM', 'EstadoFumador'] """
+
+

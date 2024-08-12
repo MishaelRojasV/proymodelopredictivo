@@ -1,7 +1,8 @@
-from rest_framework import serializers
-from django.contrib.auth.models import User
-from seguridadapp.models import Paciente
+from seguridadapp.models import Paciente, Diagnostico
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
+from rest_framework import serializers
+from datetime import date
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -52,4 +53,5 @@ class PacienteSerializer(serializers.ModelSerializer):
         instance.save()
         
         return instance
+
 
