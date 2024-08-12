@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .serializers import DiagnosticoSerializer
+from .serializers import DiagnosticoSerializer,DiagnosticoGetSerializer
 from rest_framework.response import Response 
 from rest_framework.views import APIView 
 from rest_framework.decorators import api_view
@@ -34,6 +34,19 @@ from .models import predict
                 return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) """
 
+@api_view(['GET'])
+def get_diagnostico(request):
+    try:
+        paciente = request.user.paciente
+        if not paciente:
+            return Response({'error': 'Paciente no asociado con el usuario.'}, status=status.HTTP_404_NOT_FOUND)
+        diagnosticos = Diagnostico.objects.filter(idPaciente=paciente)
+        if not diagnosticos.exists():
+            return Response({'message': 'No se encontraron diagnósticos para este paciente.'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = DiagnosticoGetSerializer(diagnosticos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
 def create_diagnostico(request):

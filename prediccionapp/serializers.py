@@ -10,11 +10,17 @@ class DiagnosticoSerializer(serializers.Serializer):
     TipoTrabajo = serializers.IntegerField()
     Nivel_GlucosaPromedio = serializers.FloatField()
     ICM = serializers.FloatField()
-    EstadoFumador = serializers.IntegerField() 
+    EstadoFumador = serializers.IntegerField()
 
-""" class DiagnosticoSerializer(serializers.ModelSerializer):
+# class DiagnosticoGetSerializer(serializers.Serializer):
+#     Hipertension = serializers.FloatField()
+#     Cardiopatia = serializers.FloatField()
+#     TipoTrabajo = serializers.IntegerField()
+#     Nivel_GlucosaPromedio = serializers.FloatField()
+#     ICM = serializers.FloatField()
+#     EstadoFumador = serializers.IntegerField() 
+
+class DiagnosticoGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Diagnostico
-        fields = ['Genero', 'Edad', 'Hipertension', 'Cardiopatia', 'TipoTrabajo', 'Nivel_GlucosaPromedio', 'ICM', 'EstadoFumador'] """
-
-
+        fields = ['idDiagnostico','fechaRegistro','Genero', 'Edad', 'Hipertension', 'Cardiopatia', 'TipoTrabajo', 'Nivel_GlucosaPromedio', 'ICM', 'EstadoFumador','prediccion'] 
