@@ -6,6 +6,19 @@
     <title>Correo</title>
 </head>
 <body>
-        
+    <h1>Hola {{ nombre_paciente }},</h1>
+    <p>Tu diagnóstico ha sido procesado. Aquí están los detalles:</p>
+    <ul>
+        <li><strong>Edad:</strong> {{ diagnostico.Edad }}</li>
+        <li><strong>Género:</strong> {{ diagnostico.Genero }}</li>
+        <li><strong>Hipertensión:</strong> {{ diagnostico.Hipertension }}</li>
+        <li><strong>Cardiopatía:</strong> {{ diagnostico.Cardiopatia }}</li>
+        <li><strong>Tipo de Trabajo:</strong> {{ diagnostico.TipoTrabajo }}</li>
+        <li><strong>Nivel de Glucosa Promedio:</strong> {{ diagnostico.Nivel_GlucosaPromedio }}</li>
+        <li><strong>ICM:</strong> {{ diagnostico.ICM }}</li>
+        <li><strong>Estado de Fumador:</strong> {{ diagnostico.EstadoFumador }}</li>
+        <li><strong>Predicción:</strong> {{ prediccion }}</li>
+    </ul>
+    <p>Saludos,<br>Tu Nombre o Empresa</p>
 </body>
 </html>

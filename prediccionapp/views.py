@@ -10,6 +10,8 @@ from rest_framework import status
 from .models import predict
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.conf import settings
+
 
 #Listado de Diagnosticos para el ACV 01 
 @api_view(['GET'])
@@ -104,6 +106,23 @@ def create_diagnostico(request):
         # Actualizar el diagnotico con la prediccion
         diagnostico.prediccion = prediction
         diagnostico.save()
+
+        # Enviar correo electrónico al paciente
+        context = {
+            'nombre_paciente': paciente.nombre,
+            'diagnostico': diagnostico,
+            'prediccion': diagnostico.prediccion
+        }
+        html_message = render_to_string('templates/envio-correo.html', context)
+        email = EmailMessage(
+            'Resultado de tu Diagnóstico',
+            html_message,
+            settings.EMAIL_HOST_USER,
+            [paciente.email]
+        )
+        email.content_subtype = "html"  # Indica que el contenido es HTML
+        email.send()
+
 
         return Response({'idDiagnostico': diagnostico.idDiagnostico, 'prediccion': diagnostico.prediccion}, status=status.HTTP_201_CREATED)
     
