@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-class PredictionSerializer(serializers.Serializer):
-    Genero = serializers.FloatField()
-    Edad = serializers.FloatField()
+class DiagnosticoSerializer2(serializers.Serializer):
     Hipertension = serializers.FloatField()
     Cardiopatia = serializers.FloatField()
     TipoTrabajo = serializers.FloatField()

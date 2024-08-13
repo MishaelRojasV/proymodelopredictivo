@@ -4,7 +4,8 @@ from django.urls import path
 from seguridadapp.views import views
 from django.urls import path,include, re_path
 from prediccionapp.views import create_diagnostico, prediction_form,get_diagnostico
-from prediccionapp2.views import PredictView2, prediction_form2
+from prediccionapp2.views import create_diagnostico2
+from prediccionapp2.views import prediction_form2
 from prediccionapp3.views import PredictView3, prediction_form3
 from seguridadapp.views import views
 from rest_framework.documentation import include_docs_urls
@@ -28,7 +29,7 @@ urlpatterns = [
     path('api/acv1/', get_diagnostico,name="get_diagnostico"),  
     # path('prediccion/', prediction_form, name='prediction_form'),
 
-    path('api/acv2', PredictView2.as_view(),name="acv2"),
+    path('api/acv2/create/', create_diagnostico2,name="acv2"),
     path('prediccion2/', prediction_form2, name='prediction2_form'),
 
     path('api/acv3', PredictView3.as_view(),name="acv3"),

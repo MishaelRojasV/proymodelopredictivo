@@ -18,8 +18,10 @@ except Exception as e:
 
 # Cargar el modelo y el escalador
 def predict(data):
-    # Escalar los datos
-    scaled_data = scaler.transform([data])
-    # Realizar la predicción
-    prediction = model.predict(scaled_data)
-    return prediction
+    # Ensure data is a list or array
+    data = [data]
+    # Scale the data
+    scaled_data = scaler.transform(data)
+    # Make the prediction
+    prediction = model.predict(scaled_data)    
+    return int(prediction[0])
