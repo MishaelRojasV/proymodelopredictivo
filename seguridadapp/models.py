@@ -53,4 +53,19 @@ class Diagnostico(models.Model):
 
     def __str__(self):
         return f'{self.idDiagnostico}'
-    
+
+class Diagnostico2(models.Model):    
+    idDiagnostico2 = models.AutoField(primary_key=True)
+    idPaciente = models.ForeignKey(Paciente, on_delete = models.CASCADE)
+    Genero = models.CharField(max_length=200, null=True, blank=True)
+    Edad = models.IntegerField(null=True, blank=True)
+    Hipertension = models.FloatField(default= False)
+    Cardiopatia = models.FloatField(default= False)
+    TipoTrabajo = models.CharField(max_length=200)
+    Nivel_GlucosaPromedio = models.FloatField(validators=[MinValueValidator(30.0), MaxValueValidator(300.0)])
+    ICM = models.FloatField(validators=[MinValueValidator(10.0), MaxValueValidator(100.0)])
+    prediccion = models.FloatField(default= False, null=True, blank=True)
+    fechaRegistro = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.idDiagnostico}'
