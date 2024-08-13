@@ -2,38 +2,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .serializers import DiagnosticoSerializer,DiagnosticoGetSerializer
 from rest_framework.response import Response 
-from rest_framework.views import APIView 
 from rest_framework.decorators import api_view
 from datetime import date, datetime
 from seguridadapp.models import Diagnostico, Paciente
 from django.shortcuts import render
 from rest_framework import status
 from .models import predict
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
-# Prediccion para el ACV 01 
-
-""" class PredictView(APIView):
-    def post(self, request, *args, **kwargs):
-        serializer = PredictionSerializer(data=request.data)
-        if serializer.is_valid():
-            data = serializer.validated_data
-            features = [
-                data['Genero'],
-                data['Edad'],
-                data['Hipertension'],
-                data['Cardiopatia'],
-                data['TipoTrabajo'],
-                data['Nivel_GlucosaPromedio'],
-                data['ICM'],
-                data['EstadoFumador']
-            ]
-            try:
-                prediction = predict(features)                
-                return Response({'prediction': prediction.tolist()})
-            except Exception as e:
-                return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) """
-
+#Listado de Diagnosticos para el ACV 01 
 @api_view(['GET'])
 def get_diagnostico(request):
     try:
@@ -48,6 +26,7 @@ def get_diagnostico(request):
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+# Prediccion para el ACV 01 
 @api_view(['POST'])
 def create_diagnostico(request):
     serializer = DiagnosticoSerializer(data=request.data)
@@ -121,8 +100,7 @@ def create_diagnostico(request):
         ]
 
         # Prediccion
-        prediction = predict(prediction_data)
-        
+        prediction = predict(prediction_data)        
         # Actualizar el diagnotico con la prediccion
         diagnostico.prediccion = prediction
         diagnostico.save()
@@ -130,6 +108,9 @@ def create_diagnostico(request):
         return Response({'idDiagnostico': diagnostico.idDiagnostico, 'prediccion': diagnostico.prediccion}, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 #Form acv01
 @login_required(login_url='login')
