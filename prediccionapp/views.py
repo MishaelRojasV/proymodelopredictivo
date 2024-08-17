@@ -28,6 +28,7 @@ def get_diagnostico(request):
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 # Prediccion para el ACV 01 
 @api_view(['POST'])
 def create_diagnostico(request):
@@ -53,43 +54,38 @@ def create_diagnostico(request):
             'EstadoFumador': serializer.validated_data.get('EstadoFumador', 0)
         }
 
-        print(data)
+        # Mapeo de TipoTrabajo y EstadoFumador
+        tipo_trabajo_map = {
+            0: 'Trabajador para el gobierno',
+            1: 'Nunca trabajó',
+            2: 'Trabajador privado',
+            3: 'Trabajador por cuenta propia'
+        }
+        
+        estado_fumador_map = {
+            0: 'No opina',
+            1: 'Anteriormente fumó',
+            2: 'Nunca fumó',
+            3: 'Fuma'
+        }
 
-        if data['TipoTrabajo'] == 0:
-            tipo_trabajo = 'Trabajador para el gobierno'
-        elif data['TipoTrabajo'] == 1:
-            tipo_trabajo = 'Nunca trabajó'
-        elif data['TipoTrabajo'] == 2:
-            tipo_trabajo = 'Trabajador privado'
-        elif data['TipoTrabajo'] == 3:
-            tipo_trabajo = 'Trabajador por cuenta propia'
-            
-        if data['EstadoFumador'] == 0:
-            estado_fumador = 'No opina'
-        elif data['EstadoFumador'] == 1:
-            estado_fumador = 'Anteriormente fumó'
-        elif data['EstadoFumador'] == 2:
-            estado_fumador = 'Nunca fumó'
-        elif data['EstadoFumador'] == 3:
-            estado_fumador = 'Fuma'
-
-        # Create the Diagnostico instance
+        # Crear la instancia de Diagnostico
         diagnostico = Diagnostico(
             idPaciente=paciente,
-            Genero=paciente.genero,
+            Genero=data['Genero'],
             Edad=data['Edad'],
             Hipertension=data['Hipertension'],
             Cardiopatia=data['Cardiopatia'],
-            TipoTrabajo=tipo_trabajo,
+            TipoTrabajo=tipo_trabajo_map.get(data['TipoTrabajo'], 'Desconocido'),
             Nivel_GlucosaPromedio=data['Nivel_GlucosaPromedio'],
             ICM=data['ICM'],
-            EstadoFumador=estado_fumador
+            EstadoFumador=estado_fumador_map.get(data['EstadoFumador'], 'Desconocido')
         )
         
-        #Guardar el diagnostico
+        # Guardar el diagnostico
         diagnostico.save()
 
-        # Data para la prediccion
+        # Data para la predicción
         prediction_data = [
             data['Genero'],
             data['Edad'],
@@ -101,34 +97,37 @@ def create_diagnostico(request):
             data['EstadoFumador']
         ]
 
-        # Prediccion
+        # Predicción
         prediction = predict(prediction_data)        
-        # Actualizar el diagnotico con la prediccion
+        # Actualizar el diagnostico con la predicción
         diagnostico.prediccion = prediction
         diagnostico.save()
 
         # Enviar correo electrónico al paciente
         context = {
-            'nombre_paciente': paciente.nombre,
+            'nombre_paciente': f'{paciente.nombres} {paciente.apPaterno} {paciente.apMaterno}',
             'diagnostico': diagnostico,
             'prediccion': diagnostico.prediccion
         }
-        html_message = render_to_string('templates/envio-correo.html', context)
+        html_message = render_to_string('envio-correo.html', context)
+
+        # Crear y enviar el correo
         email = EmailMessage(
-            'Resultado de tu Diagnóstico',
-            html_message,
-            settings.EMAIL_HOST_USER,
-            [paciente.email]
+            subject='Resultado de tu Diagnóstico',
+            body=html_message,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[paciente.email]
         )
         email.content_subtype = "html"  # Indica que el contenido es HTML
-        email.send()
-
+        
+        try:
+            email.send()
+        except Exception as e:
+            return Response({'error': f'Error al enviar el correo: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({'idDiagnostico': diagnostico.idDiagnostico, 'prediccion': diagnostico.prediccion}, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 
 #Form acv01
