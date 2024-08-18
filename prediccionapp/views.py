@@ -13,8 +13,9 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from .ChatBotService import ChatbotService
 from django.contrib.sessions.models import Session
+from decouple import config
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = config('OPENAI_API_KEY')
     
 @api_view(['POST'])
 def chatbot_response(request):
