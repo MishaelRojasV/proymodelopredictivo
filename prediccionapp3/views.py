@@ -122,7 +122,7 @@ def create_diagnostico3(request):
         except Exception as e:
             return Response({'error': f'Error al enviar el correo: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        return Response({'idDiagnostico': diagnostico.idDiagnostico, 'prediccion': diagnostico.prediccion}, status=status.HTTP_201_CREATED)
+        return Response({'idDiagnostico3': diagnostico.idDiagnostico3, 'prediccion': diagnostico.prediccion}, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
