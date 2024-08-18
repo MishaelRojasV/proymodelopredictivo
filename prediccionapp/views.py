@@ -11,7 +11,30 @@ from .models import predict
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
+from .ChatBotService import ChatbotService
+from django.contrib.sessions.models import Session
+from decouple import config
 
+OPENAI_API_KEY = config('OPENAI_API_KEY')
+    
+@api_view(['POST'])
+def chatbot_response(request):
+    try:
+        paciente = request.user.paciente
+        if not paciente:
+            return Response({'error': 'Paciente no asociado con el usuario.'}, status=status.HTTP_404_NOT_FOUND)
+        diagnosticos = Diagnostico.objects.filter(idPaciente=paciente)
+        user_input = request.data.get("message")
+        if not user_input:
+            return Response({"error": "El campo 'message' es requerido."}, status=status.HTTP_400_BAD_REQUEST)
+        session_key = request.session.session_key or request.session.create()
+        memory = request.session.get('memory', [])
+        chatbot_service = ChatbotService(openai_api_key=OPENAI_API_KEY,paciente=paciente,diagnosticos=diagnosticos)
+        response_message, memory = chatbot_service.get_response(user_input, memory)
+        request.session['memory'] = memory
+        return Response({"response": response_message}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 #Listado de Diagnosticos para el ACV 01 
 @api_view(['GET'])

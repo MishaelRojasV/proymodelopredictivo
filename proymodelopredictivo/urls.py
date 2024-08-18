@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from seguridadapp.views import views
 from django.urls import path,include, re_path
-from prediccionapp.views import create_diagnostico, prediction_form,get_diagnostico
+from prediccionapp.views import create_diagnostico, prediction_form,get_diagnostico, chatbot_response
 from prediccionapp2.views import create_diagnostico2
 from prediccionapp2.views import prediction_form2
 from prediccionapp3.views import PredictView3, prediction_form3
@@ -26,7 +26,8 @@ urlpatterns = [
 
     #Prediccion
     path('api/acv1/create/', create_diagnostico,name="acv1"),
-    path('api/acv1/', get_diagnostico,name="get_diagnostico"),  
+    path('api/acv1/', get_diagnostico,name="get_diagnostico"),
+    path('api/acv1/chatbot/',chatbot_response,name="chatbot_response" ), 
     # path('prediccion/', prediction_form, name='prediction_form'),
 
     path('api/acv2/create/', create_diagnostico2,name="acv2"),
