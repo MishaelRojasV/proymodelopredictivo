@@ -113,9 +113,9 @@ def create_diagnostico(request):
 
         # Crear y enviar el correo
         email = EmailMessage(
-            subject='Resultado de tu Diagnóstico',
+            subject='RESULTADO DE DIAGNÓSTICO',
             body=html_message,
-            from_email=settings.EMAIL_HOST_USER,
+            from_email='NEURO IA',
             to=[paciente.email]
         )
         email.content_subtype = "html"  # Indica que el contenido es HTML
