@@ -32,6 +32,10 @@ def chatbot_response(request):
         chatbot_service = ChatbotService(openai_api_key=OPENAI_API_KEY,paciente=paciente,diagnosticos=diagnosticos)
         response_message, memory = chatbot_service.get_response(user_input, memory)
         request.session['memory'] = memory
+        print(f"Session Key: {request.session.session_key}")
+        response = Response({"response": response_message}, status=status.HTTP_200_OK)
+        response.set_cookie(key='sessionid', value=request.session.session_key)
+        print(f"Cookies enviadas: {response.cookies}")
         return Response({"response": response_message}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -18,12 +18,19 @@ ALLOWED_HOSTS = []
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_CACHE_ALIAS = 'default'
+SESSION_COOKIE_NAME = 'sessionid'  
+SESSION_COOKIE_SECURE = False  
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = None  
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache', 
     }
 }
+
+CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8080'] 
 
 # Application definition
 INSTALLED_APPS = [
