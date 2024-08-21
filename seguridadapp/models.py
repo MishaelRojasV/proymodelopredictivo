@@ -69,3 +69,19 @@ class Diagnostico2(models.Model):
 
     def __str__(self):
         return f'{self.idDiagnostico}'
+    
+class Diagnostico3(models.Model):    
+    idDiagnostico3 = models.AutoField(primary_key=True, serialize=False)
+    idPaciente = models.ForeignKey(Paciente, on_delete = models.CASCADE)
+    genero=models.CharField(blank=True, max_length=200, null=True)
+    edadRango=models.IntegerField(blank=True, null=True)
+    etnia= models.CharField(blank=True, max_length=200, null=True)
+    fumador = models.FloatField(default=False)
+    bebedorFrecuente=models.FloatField(default=False)
+    actividadFisica=models.FloatField(default=False)
+    horasDormidas=models.IntegerField(blank=True, null=True)
+    prediccion = models.FloatField(default= False, null=True, blank=True)
+    fechaRegistro = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.idDiagnostico}'
