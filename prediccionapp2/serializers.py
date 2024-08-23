@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
 class DiagnosticoSerializer2(serializers.Serializer):
-    Hipertension = serializers.FloatField()
-    Cardiopatia = serializers.FloatField()
-    TipoTrabajo = serializers.FloatField()
+    Hipertension = serializers.IntegerField()
+    Cardiopatia = serializers.IntegerField()
+    TipoTrabajo = serializers.IntegerField()
     Nivel_GlucosaPromedio = serializers.FloatField()
     ICM = serializers.FloatField()

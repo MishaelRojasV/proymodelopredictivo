@@ -29,7 +29,7 @@ def create_diagnostico2(request):
         
         # Prepare the Diagnostico data
         data = {
-            'Genero': 0 if paciente.genero == 'Masculino' else 1,
+            'Genero': 0 if paciente.genero == 'Femenino' else 1,
             'Edad': age,
             'Hipertension': serializer.validated_data.get('Hipertension', 0),
             'Cardiopatia': serializer.validated_data.get('Cardiopatia', 0),
@@ -69,9 +69,9 @@ def create_diagnostico2(request):
         prediction_data = [
             data['Genero'],
             data['Edad'],
+            data['TipoTrabajo'],
             data['Hipertension'],
             data['Cardiopatia'],
-            data['TipoTrabajo'],
             data['Nivel_GlucosaPromedio'],
             data['ICM']
         ]
@@ -83,7 +83,7 @@ def create_diagnostico2(request):
         diagnostico.save()
 
         return Response({'idDiagnostico': diagnostico.idDiagnostico2, 'prediccion': diagnostico.prediccion}, status=status.HTTP_201_CREATED)
-    
+
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

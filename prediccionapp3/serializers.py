@@ -4,9 +4,10 @@ from datetime import date
 from rest_framework import serializers
 
 class DiagnosticoSerializer3(serializers.Serializer):
-    EstadoFumador = serializers.IntegerField()
-    bebedorFrecuente = serializers.IntegerField()
-    actividadFisica = serializers.IntegerField()
+    etnia = serializers.IntegerField()
+    fumador = serializers.BooleanField()
+    bebedorFrecuente = serializers.BooleanField()
+    actividadFisica = serializers.BooleanField()
     horasDormidas = serializers.IntegerField()
 
 class DiagnosticoGetSerializer3(serializers.ModelSerializer):

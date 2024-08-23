@@ -42,42 +42,67 @@ def create_diagnostico3(request):
         birth_date = paciente.fecha_nacimiento
         age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
         
-        # Prepare the Diagnostico data
         data = {
-            'genero': 0 if paciente.genero == 'Masculino' else 1,
-            'edad': age,
-            'etnia': serializer.validated_data.get('etnia', ''),
-            'fumador': serializer.validated_data.get('fumador', ''),
-            'bebedorFrecuente': serializer.validated_data.get('bebedorFrecuente', ''),
-            'actividadFisica': serializer.validated_data.get('actividadFisica', ''),
-            'horasDormidas': serializer.validated_data.get('horasDormidas', '')
+            'genero': 0 if paciente.genero == 'Femenino' else 1,
+            'edadRango': obtener_rango_edad(age),
+            'etnia': serializer.validated_data.get('etnia', 0),
+            'fumador': serializer.validated_data.get('fumador', False),
+            'bebedorFrecuente': serializer.validated_data.get('bebedorFrecuente', False),
+            'actividadFisica': serializer.validated_data.get('actividadFisica', False),
+            'horasDormidas': serializer.validated_data.get('horasDormidas', 0),
         }
 
-        print(data)
+        # fumador_map = {
+        #     0: 'No',
+        #     1: 'Sí',
+        # }
+        # bebedorFrecuente_map = {
+        #     0: 'No',
+        #     1: 'Sí',
+        # }
+        # actividadFisica_map = {
+        #     0: 'No',
+        #     1: 'Sí',
+        # }
 
-        fumador_map = {
-            0: 'paciente no fumador',
-            1: 'paciente fumador',
-        }
-        bebedorFrecuente_map = {
-            0: 'no es bebedor frecuente',
-            1: 'es bebedor frecuente',
-        }
-        actividadFisica_map = {
-            0: 'no realiza acividad fisica',
-            1: 'realiza actividad fisica',
-        }
+        if data['etnia'] == 0:
+            etnia = 'Indígena'
+        elif data['etnia'] == 1:
+            etnia = 'Asiático'
+        elif data['etnia'] == 2:
+            etnia = 'Negro'
+        elif data['etnia'] == 3:
+            etnia = 'Hispano'
+        elif data['etnia'] == 4:
+            etnia = 'Otro'
+        elif data['etnia'] == 5:
+            etnia = 'Blanco'
+
+        if data['fumador'] == True:
+            fumador=1
+        else:
+            fumador=0
+        
+        if data['bebedorFrecuente'] == True:
+            bebedorFrecuente=1
+        else:
+            bebedorFrecuente=0
+        
+        if data['actividadFisica'] == True:
+            actividadFisica=1
+        else:
+            actividadFisica=0
 
         # Crear la instancia de Diagnostico
         diagnostico = Diagnostico3(
             idPaciente=paciente,
-            Genero=data['Genero'],
-            Edad=data['Edad'],
-            Etnia=data['Etnia'],
-            Fumador=fumador_map,
-            BebedorFrecuente=bebedorFrecuente_map,
-            ActividadFisica=actividadFisica_map,
-            HorasDormidas=data['HorasDormidas']
+            genero=paciente.genero ,
+            edadRango=age,
+            etnia=etnia,
+            fumador=fumador,
+            bebedorFrecuente=bebedorFrecuente,
+            actividadFisica=actividadFisica,
+            horasDormidas=data['horasDormidas']
         )
         
         # Guardar el diagnostico
@@ -85,12 +110,13 @@ def create_diagnostico3(request):
 
         # Data para la predicción
         prediction_data = [
-            data['Genero'],
-            data['Edad'],
-            data['Fumador'],
-            data['BebedorFrecuente'],
-            data['ActividadFisica'],
-            data['HorasDormidas']
+            data['fumador'],
+            data['bebedorFrecuente'],
+            data['actividadFisica'],
+            data['horasDormidas'],
+            data['edadRango'],
+            data['genero'],
+            data['etnia'],
         ]
 
         # Predicción
@@ -98,29 +124,6 @@ def create_diagnostico3(request):
         # Actualizar el diagnostico con la predicción
         diagnostico.prediccion = prediction
         diagnostico.save()
-
-        
-        # Enviar correo electrónico al paciente
-        context = {
-            'nombre_paciente': f'{paciente.nombres} {paciente.apPaterno} {paciente.apMaterno}',
-            'diagnostico': diagnostico,
-            'prediccion': diagnostico.prediccion
-        }
-        html_message = render_to_string('envio-correo.html', context)
-
-        # Crear y enviar el correo
-        email = EmailMessage(
-            subject='RESULTADO DE DIAGNÓSTICO',
-            body=html_message,
-            from_email='NEURO IA',
-            to=[paciente.email]
-        )
-        email.content_subtype = "html"  # Indica que el contenido es HTML
-        
-        try:
-            email.send()
-        except Exception as e:
-            return Response({'error': f'Error al enviar el correo: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({'idDiagnostico3': diagnostico.idDiagnostico3, 'prediccion': diagnostico.prediccion}, status=status.HTTP_201_CREATED)
     
@@ -132,3 +135,32 @@ def prediction_form3(request):
     user = request.user
     request.session['userName_logged'] = user.get_full_name()
     return render(request, 'form-acv3.html', {'userNameLogged':request.session['userName_logged']})
+
+
+def obtener_rango_edad(edad):
+    if 18 <= edad <= 24:
+        return 0 
+    elif 25 <= edad <= 29:
+        return 1  
+    elif 30 <= edad <= 34:
+        return 2  
+    elif 35 <= edad <= 39:
+        return 3  
+    elif 40 <= edad <= 44:
+        return 4 
+    elif 45 <= edad <= 49:
+        return 5  
+    elif 50 <= edad <= 54:
+        return 6  
+    elif 55 <= edad <= 59:
+        return 7  
+    elif 60 <= edad <= 64:
+        return 8  
+    elif 65 <= edad <= 69:
+        return 9  
+    elif 70 <= edad <= 74:
+        return 10  
+    elif 75 <= edad <= 79:
+        return 11  
+    elif edad >= 80:
+        return 12 
