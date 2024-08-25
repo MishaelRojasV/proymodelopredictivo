@@ -20,6 +20,9 @@ urlpatterns = [
     #Cuenta
     path('login/', views.login),
     path('logout/', views.logout),
+    
+    path('auth/login', views.login_view, name='login'),
+    path('home/', views.home_view, name='home'),
 
     #Paciente
     path('paciente/', include('seguridadapp.routes.paciente')),
