@@ -7,6 +7,8 @@
     <title>Iniciar Sesión</title>
     <!-- <link rel="stylesheet" href="styles.css"> -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- Font Awesome para los íconos -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 <body>
@@ -147,12 +149,20 @@
         </form>
         <div class="register">
             <label for="register">No tienes una cuenta?...</label>
-			<a id="register-button" href="">Registrarse</a>
+			<a id="register-button" href="{% url 'register-paciente' %}" type="button" >Registrarse</a>	
         </div>
     </div>
+
+
     <div id="loading-overlay" class="overlay hidden">
         <div class="spinner"></div>
     </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome para los íconos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
 	<script>
         document.getElementById('login-form').addEventListener('submit', function(event) {
@@ -181,6 +191,8 @@
         });
     </script>
 	
+
+
 
 </body>
 </html>
