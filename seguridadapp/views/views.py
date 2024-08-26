@@ -9,6 +9,8 @@ from django.shortcuts import get_object_or_404
 from seguridadapp.models import Paciente
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import JsonResponse
+
 import requests
 
 
@@ -25,31 +27,34 @@ def login(request):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        api_url = 'http://localhost:8080/login/' 
-        payload = {
-                    'username': username,
-                    'password': password
-                }
-        response = requests.post(api_url, data=payload)
+        response = requests.post('http://127.0.0.1:8080/login/', data={'username': username, 'password': password})
+        data = response.json()
 
         if response.status_code == 200:
-            # Guardamos el token en la sesión o en cookies
-            token = response.json().get('token')
-            request.session['auth_token'] = token
-            return redirect('home')  
-        else:        
-            messages.error(request, 'Nombre de usuario o contraseña incorrectos')
+            # Aquí puedes hacer algo con los datos de la respuesta
+            return JsonResponse(data)
+        else:
+            return JsonResponse({"error": data.get('message', 'Error desconocido')}, status=response.status_code)
+
     return render(request, 'login.html')
 
-def home_view(request):
-    token = request.session.get('auth_token')
-    if not token:
-        messages.error(request, 'Error al obtener el token de autenticación')
-        return redirect('login')  
-    return render(request, 'home.html') 
+def logout_view(request):
+    token = request.headers.get('Authorization')
+    if token:
+        try:
+            token_key = token.split()[1]
+            Token.objects.get(key=token_key).delete()  # Elimina el token de la base de datos
+        except Token.DoesNotExist:
+            pass
+
+    logout(request)  # Cierra la sesión del usuario
+    return JsonResponse({'message': 'Logout exitoso'}, status=200)
+
+def home_view(request): 
+    return render(request, 'home.html')
 
 
 @api_view(['POST'])

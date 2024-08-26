@@ -153,7 +153,8 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <a href="#" class="dropdown-item">Mi Perfil</a>          
-              <div class="dropdown-divider"></div><a href="#" class="dropdown-item"><i class="fa fa-power-off"></i> Salir</a>          
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" id="logout-button"><i class="fa fa-power-off"></i> Salir</a>          
             </div>
           </li>         
         </ul>
@@ -188,7 +189,41 @@
   <script src="{% static '/adminlte/dist/js/demo.js' %}"></script>
 
   <script src="{% static '/adicionales/bootstrap.bundle.min.js' %}" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('logout-button').addEventListener('click', function (event) {
+        event.preventDefault();
 
+        const token = localStorage.getItem('token');  // Obtener el token de localStorage
+
+        fetch("{% url 'logout_view' %}", {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',  // Incluye el token CSRF
+            'Authorization': `Token ${token}`,  // Incluye el token de autenticación
+            'Content-Type': 'application/json'
+          },
+          credentials: 'same-origin'
+        })
+          .then(response => {
+            if (response.ok) {
+              // Eliminar el token de localStorage
+              localStorage.removeItem('token');
+
+              // Redirigir a la página de inicio
+              window.location.href = "{% url 'login_view' %}";
+            } else {
+              console.error('Error al hacer logout');
+              return response.text();  // Obtener el contenido del error
+            }
+          })
+          .then(errorText => {
+            console.error('Detalles del error:', errorText);
+          })
+          .catch(error => console.error('Error:', error));
+      });
+    });
+  </script>
 {% block js %}
 {% endblock %}
 </body>

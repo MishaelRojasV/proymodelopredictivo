@@ -125,7 +125,8 @@
 			<br>
             <h1 >Inicia sesión con tu cuenta de usuario.</h1>
         </div>
-        <form id="login-form">
+        <form id="login-form" method="post">
+			{% csrf_token %}
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Nombre de Usuario" required>
@@ -154,56 +155,31 @@
     </div>
 
 	<script>
-		document.getElementById('login-form').addEventListener('submit', async function(event) {
-			event.preventDefault();
-	
-			const username = document.getElementById('username').value;
-			const password = document.getElementById('password').value;
-			const termsAccepted = document.getElementById('terms').checked;
-	
-			if (!termsAccepted) {
-				alert('Debe aceptar los términos y condiciones.');
-				return;
-			}
-	
-			const overlay = document.getElementById('loading-overlay');
-			overlay.classList.remove('hidden');
-	
-			try {
-				const response = await fetch('http://localhost:8080/login/', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ username, password }),
-				});
-	
-				const data = await response.json();
-				console.log('Response:', response); // Verifica el estado de la respuesta
-				console.log('Data:', data); // Verifica los datos recibidos
-	
-				overlay.classList.add('hidden');
-	
-				if (response.ok) {
-					const token = data.token;
-					const userData = data.user;
-					const pacienteData = data.paciente;
-	
-					// Guardar token en localStorage o cookies, según sea necesario
-					localStorage.setItem('auth_token', token);
-	
-					// Redirigir a la vista de bienvenida
-					window.location.href = 'http://127.0.0.1:8080/home/';
-				} else {
-					// Mostrar mensaje de error
-					alert(data.message || 'Error desconocido');
-				}
-			} catch (error) {
-				overlay.classList.add('hidden');
-				alert('Ocurrió un error: ' + error.message);
-			}
-		});
-	</script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+
+            fetch("{% url 'login_view' %}", {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.token) {
+                    // Manejar la respuesta de éxito, como guardar el token y redirigir al usuario
+                    console.log('Login exitoso:', data);
+					localStorage.setItem('token', data.token);
+					window.location.href = "{% url 'home' %}";
+
+                } else {
+                    // Manejar el error
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 	
 
 </body>
