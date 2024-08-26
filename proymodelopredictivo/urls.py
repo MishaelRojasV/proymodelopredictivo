@@ -27,6 +27,9 @@ urlpatterns = [
     path('auth/register/', views.register_view, name='register-paciente'),
     path('auth/logout/', views.logout_view, name='logout_view'),
 
+    #Usuarios
+    path('usuarios/',include('seguridadapp.routes.usuario'),name="usuarios"),
+
     #Paciente
     path('paciente/', include('seguridadapp.routes.paciente')),
 

@@ -50,7 +50,7 @@
 	<div class="pc-mob-header pc-header">
 		<div class="pcm-logo">
 			<img style="height: 50px; width: 50px;" src="{% static 'login/images/logo_redondeado.png'%}" alt="" class="logo logo-lg ml-3">
-          <label for="" class="mt-2 ml-3"><b style="font-size: 1.2em; color: #fff;">NEURO IA</b></label>
+            <label for="" class="mt-2 ml-3"><b style="font-size: 1.2em; color: #fff;">NEURO IA</b></label>
 		</div>
 		<div class="pcm-toolbar">
 			<a href="#!" class="pc-head-link" id="mobile-collapse">
@@ -87,13 +87,13 @@
 						<label>Navegación</label>
 					</li>
 					<li class="pc-item">
-						<a href="" class="pc-link "><span class="pc-micon"><i data-feather="home"></i></span><span class="pc-mtext">Home</span></a>
+						<a href="{% url 'home' %}" class="pc-link "><span class="pc-micon"><i data-feather="home"></i></span><span class="pc-mtext">Home</span></a>
 					</li>					
 					<li class="pc-item pc-caption">
 						<label>Registros</label>
 					</li>
 					<li class="pc-item">
-						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-users"></i></span><span class="pc-mtext"> Usuarios</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+						<a href="{% url 'listar_usuarios' %}" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-users"></i></span><span class="pc-mtext"> Usuarios</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
 					</li>
 					<li class="pc-item">
 						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-suitcase-medical"></i></span><span class="pc-mtext">Médicos</span></a>

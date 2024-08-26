@@ -86,3 +86,5 @@ def logout(request):
         return Response({"message": "Cierre de sesión exitoso"}, status=status.HTTP_200_OK)
     except AttributeError:
         return Response({"error": "El usuario no tiene un token de autenticación"}, status=status.HTTP_400_BAD_REQUEST)
+
+
