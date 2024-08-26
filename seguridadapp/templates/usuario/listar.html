@@ -1,142 +1,78 @@
 {% extends "plantilla.html" %}
-{% block title %} PREDICCIÓN | Usuarios {% endblock title %}
+{% block title %} NEURO IA | Usuarios {% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-<!-- Estilos -->
-<style>
-    .card-header{
-        color: white;
-        background: #56CCF2;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to left, #56CCF2, #2F80ED);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to left,  #56CCF2, #2F80ED);
-    }
-
-    thead, tfoot{
-        background-color: #f0f3f5 !important;
-    }
-
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 42px;
-        height: 25px;
-    }
-
-    .switch input { 
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #bab1b1;
-        transition: .4s;
-        border-radius: 34px;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 18px;
-        width: 18px;
-        left: 2px;
-        bottom: 4px;
-        background-color: white;
-        transition: .4s;
-        border-radius: 50%;
-    }
-
-    input:checked + .slider {
-        background-color: #2F80ED;
-    }
-
-    input:checked + .slider:before {
-        transform: translateX(18px);
-    }
-
-</style>
-<!--  -->
-
-    <div class="p-2" >
-        <div class="card m-3" style="background: #cbcbcb;">
-            <div class="card-header d-flex ">           
-                <h4 class="card-title pl-3 pt-1" style="font-size: 14px;"><i class="fa-solid fa-bars mr-2"></i><b> LISTADO DE USUARIOS</b></h4>                          
-               
-                <div class="ml-auto pr-4 pt-1">
-                    <a href="{% url 'creacion_usuario' %}" class='btn btn-sm' style="background-color:#e7edf7 ; font-size: 12px;">
-                        <b><i class='fas fa-plus fa-sm'></i> NUEVO</b> 
-                    </a>
-                </div>  
-                        
-            </div> 
-
-            <div class="card-body">           
-                <div class="row">     
-                    <div class="col-lg-7">
-                            <div class="col-lg-1" style="color: #000;"> 
-                                <label for="selectStatusUSer">Estado:</label> 
-                            </div>  
-                            <div class="col-lg-6">                                                     
-                                <select class="form-control form-control-sm" id="filtroEstado" name="estado">
-                                    <option value="todos">Todos</option>
-                                    <option value="activo">Activos</option>
-                                    <option value="inactivo">Inactivos</option>                           
-                                </select>
-                            </div>   
-                    </div>                     
-                    <div class="col-lg-3"></div>                            
-                    
-
-                </div>                  
-                <hr class="m-3 mb-3">                
-                <!-- Listado -->
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="table-responsive">
-                        <table class="table-light table-hover table-sm my-3" style="width: 100%;" id="tablausuarios">
-                            <thead>
-                                <tr>                               
-                                    <th >Id</th>
-                                    <th>Nombres</th>                         
-                                    <th>Username</th>
-                                    <th>Correo</th>                                  
-                                    <th>Estado</th>                                  
-                                    <th><center>Opciones</center></th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablebody_usuarios" >
-
-                            </tbody>                         
-                            <tfoot>
-                                <tr>                               
-                                    <th >Id</th>
-                                    <th>Nombres</th>                         
-                                    <th>Username</th>
-                                    <th>Correo</th>                                  
-                                    <th>Estado</th>                                  
-                                    <th><center>Opciones</center></th>
-                                </tr>
-                            </tfoot>
-                        </table>
+<div class="pcoded-content">
+    <!-- [ breadcrumb ] start -->
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">USUARIOS</h5>
                     </div>
-                </div>                                    
-            </div>                      
-        </div>    
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item">Listado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- [ breadcrumb ] end -->
+    <!-- [ Main Content ] start -->
+    <div class="row ">
+        <!-- customer-section start -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5>LISTADO DE USUARIOS</h5>    
+                    <!-- <a href="" class="btn  btn-secondary btn-sm "><i class="fa fa-plus-square"></i> NUEVO</a> -->
+                                    
+                </div>
+                <div class="pro-scroll">
+                    <div class="card-body table-border-style">
+                        <div class="table-responsive">
+                            <table class="table table-sm my-3" id="tablausuarios" style="width:100%">
+                                <thead class="table">
+                                    <tr>                               
+                                        <th><center>Id</center></th>
+                                        <th><center>Nombres</center></th>                         
+                                        <th><center>Username</center></th>
+                                        <th><center>Correo</center></th>                                  
+                                        <th><center>Estado</center></th>                                  
+                                        <th><center>Acciones</center></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablebody_usuarios">
+                                </tbody>                       
+                            </table>        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- customer-section end -->
+    </div>
+    <!-- [ Main Content ] end -->
+</div>
 
 {% endblock content %}
 
 {% block js %}
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<!-- Libreria DAtatables.js -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.2/js/dataTables.js"></script> 
+<script src="https://cdn.datatables.net/2.1.2/js/dataTables.bootstrap4.js"></script> 
+
+<!-- Libreria DAtatables.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.bootstrap4.css"> 
+
+
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Mensaje de exito -->
@@ -153,8 +89,9 @@
         {% endfor %}
     {% endif %}
 
-<!-- Datatables -->
-<script>
+
+    <!-- Datatables -->
+    <script>
         let dataTable;
         let dataTableIsInitialized = false;
 
@@ -166,29 +103,20 @@
             pageLength: 10,
             destroy: true,
             language:{
-                lengthMenu: "Mostrar _MENU_ registros por página",
+                lengthMenu: "Mostrar  _MENU_",
                 zeroRecords: "Ningun registro encontrado",
-                info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
-                infoEmpty: "Ningún registro encontrado",
-                infoFiltered: "(filtrados desde _MAX_ registros totales)",
+                info: "",
+                infoEmpty: "",
+                infoFiltered: "",
                 search: "Buscar: ",
                 loadingRecords: "Cargando...",
                 paginate:{
-                    first: "Primero",
-                    last: "Ultimo",
-                    next: "Siguiente",
-                    previous: "Anterior"
+                    first: "<<",
+                    last: ">>",
+                    next: ">",
+                    previous: "<"
                 }
-            },           
-            layout: {
-                topStart: 'buttons'
-            },
-            buttons:[ { extend: 'copy', text: '<i class="fa-solid fa-copy"></i>', className: 'btn btn-warning', exportOptions:{columns: [':visible']} }, 
-                      { extend: 'excel', text: '<i class="fa-solid fa-file-excel"></i>', className: 'btn btn-success', exportOptions:{columns: [':visible']}},
-                      { extend: 'pdf', text: '<i class="fa-solid fa-file-pdf"></i>', className: 'btn btn-danger', exportOptions:{columns: [':visible']}},
-                      { extend: 'colvis', text: 'Filtrar campos',className: 'btn btn-secundary' }                   
-                    ]    
-                                  
+            },                                            
         };
 
         const initDataTable = async () => {
@@ -203,11 +131,11 @@
 
         const listaUsuarios = async (estado) => {
             try {
-                const response = await fetch("/usuarios/listar_usuarios_json?estado=" + estado);
+                const response = await fetch("/usuarios/listar_usuarios_json");
                 const data = await response.json();
                 let content = ``;
                 data.usuarios.forEach((item_usuario) => {
-                    const isActive = item_usuario.is_active ? 'checked' : '';
+                    const isActive = item_usuario.is_active ? 'ACTIVO' : 'INACTIVO';
                     const editUrl = `/usuarios/edit/${item_usuario.id}/`;
                     content += `
                         <tr>                            
@@ -215,15 +143,11 @@
                             <td>${item_usuario.first_name}  ${item_usuario.last_name}</td>                                                           
                             <td>${item_usuario.username}</td> 
                             <td>${item_usuario.email}</td>
-                            <td>    
-                                <label class="switch">
-                                    <input type="checkbox" class="status-toggle" data-user-id="${item_usuario.id}" ${isActive}>
-                                    <span class="slider round"></span>
-                                </label>
+                            <td>                       
+                                <center><span class="badge badge-light-success" style="font-size:12px; ">${isActive}</span></center>
                             </td>
                             <td>
-                                <center>
-                                    <a href="${editUrl}" class="btn btn-sm" style="background-color: #4273b5; color: white;"><i class='fa fa-edit'></i></a>
+                                <center>                                    
                                     <button onclick="eliminarUsuario(${item_usuario.id})" class='btn btn-sm btn-danger'><i class='fa-solid fa-trash-can'></i></button>
                                 </center>
                             </td>
@@ -241,37 +165,6 @@
             await initDataTable();
         });
 
-    </script>
-
-    <!-- Activar/Desactivar Estado -->
-    <script>
-    $(document).ready(function(){
-            $('body').on('change', '.status-toggle', function(){
-                var user_id = $(this).data('user-id');  
-                var is_active = $(this).is(':checked'); 
-
-                $.ajax({
-                    url: 'http://127.0.0.1:8000/update-status-user/',
-                    method: 'POST',
-                    data: {
-                        'user_id': user_id,
-                        'is_active': is_active,
-                        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
-                    },                  
-                    error: function(response) {
-                        alert('Error al cambiar el estado.');
-                    }
-                });
-            });
-        });
-    </script>
-            
-    <!-- Filtrando por estado -->
-    <script>
-        document.getElementById("filtroEstado").addEventListener("change", function() {
-            const estadoSeleccionado = this.value;
-            listaUsuarios(estadoSeleccionado);
-        });
     </script>
 
     <!-- Eliminar un usuario -->
@@ -294,4 +187,4 @@
         }
     </script>
 
-{% endblock js %} 
+{% endblock %}
