@@ -23,6 +23,8 @@ urlpatterns = [
     
     path('auth/login/', views.login_view, name='login_view'),
     path('home/', views.home_view, name='home'),
+    path('auth/register/', views.register_view, name='register-paciente'),
+    path('auth/logout/', views.logout_view, name='logout_view'),
 
     #Paciente
     path('paciente/', include('seguridadapp.routes.paciente')),

@@ -46,12 +46,15 @@ def logout_view(request):
     if token:
         try:
             token_key = token.split()[1]
-            Token.objects.get(key=token_key).delete()  # Elimina el token de la base de datos
+            Token.objects.get(key=token_key).delete()  
         except Token.DoesNotExist:
             pass
 
-    logout(request)  # Cierra la sesión del usuario
+    logout(request)  
     return JsonResponse({'message': 'Logout exitoso'}, status=200)
+
+def register_view(request):
+    return render(request, 'register.html') 
 
 def home_view(request): 
     return render(request, 'home.html')
