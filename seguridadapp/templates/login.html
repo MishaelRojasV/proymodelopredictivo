@@ -164,31 +164,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
 	<script>
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(this);
-
-            fetch("{% url 'login_view' %}", {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.token) {
-                    // Manejar la respuesta de éxito, como guardar el token y redirigir al usuario
-                    console.log('Login exitoso:', data);
-					localStorage.setItem('token', data.token);
-					window.location.href = "{% url 'home' %}";
-
-                } else {
-                    // Manejar el error
-                    console.error('Error:', data.error);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    </script>
+		document.addEventListener('DOMContentLoaded', function() {
+			document.getElementById('login-form').addEventListener('submit', function(event) {
+				event.preventDefault();
+				
+				const formData = new FormData(this);
+	
+				fetch("{% url 'login_view' %}", {
+					method: 'POST',
+					body: formData,
+					headers: {
+						'X-Requested-With': 'XMLHttpRequest'
+					}
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.token) {
+						// Manejar la respuesta de éxito
+						console.log('Login exitoso:', data);
+						localStorage.setItem('token', data.token);
+						window.location.href = "{% url 'home' %}";
+					} else {
+						// Manejar el error
+						console.error('Error:', data.error);
+					}
+				})
+				.catch(error => console.error('Error:', error));
+			});
+		});
+	</script>
+	
 	
 
 

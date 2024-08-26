@@ -7,7 +7,9 @@
         
         <div class="container px-2 py-1" id="custom-cards">
             <!-- <h2 class="pb-2 border-bottom">Custom cards</h2> -->
-        
+            <div class="container d-flex text-center">               
+                <b id="username-display" style="font-size: 2em;">Cargando...</b>
+            </div>
             <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
 
                 <div class="col">
@@ -53,8 +55,40 @@
                     </div>
                 </div>
                     
+                
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                window.location.href = '/auth/login/';
+                return;
+            }
+    
+            fetch('/user/', {  // Usa la ruta configurada en urls.py
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('username-display').textContent = `Bienvenido, ${data.username}! 👋`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('username-display').textContent = 'Error al cargar el usuario';
+            });
+    
+            document.getElementById('logout-button').addEventListener('click', function() {
+                localStorage.removeItem('token');
+                window.location.href = '/auth/login/';
+            });
+        });
+    </script>
+    
 {% endblock %} 
 

@@ -1,194 +1,208 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% load static %}
+<head>
+    <title>Neuro IA - ACV</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="{% static 'login/images/icons8-shop-16.png'%}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="Phoenixcoded" />
 
-    <title> {% block title %} {% endblock %}</title>
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700;900&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Theme style -->
-    <!-- <link rel="stylesheet" href="{% static '/adminlte/dist/css/adminlte.min.css' %}"> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    <script src="{% static '/adicionales/color-modes.js' %}"></script>
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-    <link href="{% static '/adicionales/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
-    {% block css %} {% endblock %}
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Favicon icon -->
+    <link rel="icon" href="{% static '/assets/images/favicon.svg' %}" type="image/x-icon">
+
+    <!-- font css -->
+    <link rel="stylesheet" href="{% static '/assets/fonts/font-awsome-pro/css/pro.min.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/fonts/feather.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/fonts/fontawesome.css' %}">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="{% static '/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/css/customizer.css' %}">
+
+	<!-- Select2 -->
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	
+</head>
+<body class="">
     <style>
-      :root {
-        --font-size: 1;
-      }
-      body{
-        font-family: 'Poppins', sans-serif;
-        font-size: calc(var(--font-size) * 0.9em);
-        background-color: #fff;
-      }
-      
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+        body{
+            background-color: #f0f2f8 !important;
         }
-      }
+    </style>
+    
+	<!-- [ Pre-loader ] start -->
+	<div class="loader-bg">
+		<div class="loader-track">
+			<div class="loader-fill"></div>
+		</div>
+	</div>
+	<!-- [ Pre-loader ] End -->
 
-      .b-example-divider {
-        width: 100%;
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
+	<!-- [ Mobile header ] start -->
+	<div class="pc-mob-header pc-header">
+		<div class="pcm-logo">
+			<img style="height: 50px; width: 50px;" src="{% static 'login/images/logo_redondeado.png'%}" alt="" class="logo logo-lg ml-3">
+          <label for="" class="mt-2 ml-3"><b style="font-size: 1.2em; color: #fff;">NEURO IA</b></label>
+		</div>
+		<div class="pcm-toolbar">
+			<a href="#!" class="pc-head-link" id="mobile-collapse">
+				<div class="hamburger hamburger--arrowturn">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+				<!-- <i data-feather="menu"></i> -->
+			</a>
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
+			<a href="#!" class="pc-head-link" id="header-collapse">
+				<i data-feather="more-vertical"></i>
+			</a>
+		</div>
+	</div>
+	<!-- [ Mobile header ] End -->
 
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
+	<!-- [ navigation menu ] start -->
+	<nav class="pc-sidebar ">
+		<div class="navbar-wrapper">
+			<div class="m-header" >
+				<a href="{% url 'home' %}" class="b-brand d-flex align-items-center ">
+					<!-- ========   change your logo hear   ============ -->
+          <img style="height: 50px; width: 50px;" src="{% static 'login/images/logo_redondeado.png'%}" alt="" class="logo logo-lg ml-3">
+          <label for="" class="mt-2 ml-3"><b style="font-size: 1.2em; color: #fff;">NEURO IA</b></label>
+					<!-- <img src="{% static '/assets/images/logo-sm.svg' %}" alt="" class="logo logo-sm"> -->
+				</a>
+			</div>
+			<div class="navbar-content">
+				<ul class="pc-navbar">
+					
+					<li class="pc-item pc-caption">
+						<label>Navegación</label>
+					</li>
+					<li class="pc-item">
+						<a href="" class="pc-link "><span class="pc-micon"><i data-feather="home"></i></span><span class="pc-mtext">Home</span></a>
+					</li>					
+					<li class="pc-item pc-caption">
+						<label>Registros</label>
+					</li>
+					<li class="pc-item">
+						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-users"></i></span><span class="pc-mtext"> Usuarios</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+					</li>
+					<li class="pc-item">
+						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-suitcase-medical"></i></span><span class="pc-mtext">Médicos</span></a>
+					</li>
+          <li class="pc-item">
+						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-hospital-user"></i></i></span><span class="pc-mtext"> Pacientes</span></a>
+					</li>					
+          <li class="pc-item pc-caption">
+						<label>DIAGNÓSTICOS</label>
+					</li>
+					<li class="pc-item">
+						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-sharp fa-solid fa-list-check"></i></span><span class="pc-mtext">Diagnóstico de ACV</span></a>
+					</li>					
+          <li class="pc-item">
+						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-sharp fa-solid fa-list-check"></i></span><span class="pc-mtext">Estilo de Vida</span></a>
+					</li>
+          <li class="pc-item">
+						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-sharp fa-solid fa-list-check"></i></span><span class="pc-mtext">Factores Médicos</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- [ navigation menu ] end -->
+    
+	<!-- [ Header ] start -->
+	<header class="pc-header ">
+		<div class="header-wrapper">
+			<div class="mr-auto pc-mob-drp">
+				<ul class="list-unstyled">
+					<li class="dropdown pc-h-item">
+						<div class="dropdown-menu pc-h-dropdown">
+							<a href="#!" class="dropdown-item">
+								<i data-feather="user"></i>
+								<span>Mi cuenta</span>
+							</a>
+							<a href="{% url 'logout_view' %}" class="dropdown-item">
+								<i data-feather="power"></i>
+								<span>Salir</span>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="ml-auto">
+				<ul class="list-unstyled">
+					<li class="dropdown pc-h-item">
+						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+							<img src="{% static '/assets/images/user/avatar.png' %}" alt="user-image" class="user-avtar">
+							<span>
+							
+								<span class="user-name" style="text-transform: uppercase;" id="username-display1">Username</span>		
+								<span class="user-desc">Administrator</span>
+							</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
+							<div class=" dropdown-header">
+								<h6 class="text-overflow m-0">Bienvenido !</h6>
+							</div>
+							<a href="#!" class="dropdown-item">
+								<i data-feather="user"></i>
+								<span>Mi cuenta</span>
+							</a>
+							<a href="{% url 'logout_view' %}" class="dropdown-item" id="logout-button">
+								<i data-feather="power"></i>
+								<span>Salir</span>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
 
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
+		</div>
+	</header>
+	<!-- [ Header ] end -->
 
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .btn-bd-primary {
-        --bd-violet-bg: #712cf9;
-        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
-        --bs-btn-font-weight: 600;
-        --bs-btn-color: var(--bs-white);
-        --bs-btn-bg: var(--bd-violet-bg);
-        --bs-btn-border-color: var(--bd-violet-bg);
-        --bs-btn-hover-color: var(--bs-white);
-        --bs-btn-hover-bg: #6528e0;
-        --bs-btn-hover-border-color: #6528e0;
-        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-        --bs-btn-active-color: var(--bs-btn-hover-color);
-        --bs-btn-active-bg: #5a23c8;
-        --bs-btn-active-border-color: #5a23c8;
-      }
-
-      .bd-mode-toggle {
-        z-index: 1500;
-      }
-
-      .bd-mode-toggle .dropdown-menu .active .bi {
-        display: block !important;
-      }
-
-      </style>
-
-
-      <link href="{% static '/adicionales/color-modes.js' %}" rel="stylesheet">
-  </head>
-  
-<body class="hold-transition">
-<!-- Site wrapper -->
-<div >
-  
-  <header class="p-3 text-bg-dark">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="{% url 'home' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          &nbsp<i class="fa-solid fa-gauge fa-2xl" style="color: #0dcaf0;"></i>&nbsp &nbsp &nbsp &nbsp
-        </a>
-  
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="{% url 'home' %}" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Usuarios</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Reportes</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Acerca</a></li>
-        </ul>
-  
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-        </form>
-  
-        <ul class="navbar-nav ">   
-          <!-- Messages Dropdown Menu -->
-          <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-              <div class="user-panel d-flex">        
-                <div class="image">
-                  <i class="fa-solid fa-circle-user fa-2xl" style="color: #3379d3;"></i>                
-                </div>    
-                <div  style="text-transform:uppercase ;" class="info" id="UserLogged-info"> &nbsp &nbsp{{userNameLogged}}  </div>
-
-              </div>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <a href="#" class="dropdown-item">Mi Perfil</a>          
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item" id="logout-button"><i class="fa fa-power-off"></i> Salir</a>          
-            </div>
-          </li>         
-        </ul>
-      </div>
-    </div>
-  </header>
-
-
-    <!--  fa-solid fa-person Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Main content -->
-      <section class="content">
-      {% block content %}
-
-      {% endblock %}
-      </section>
-      <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-
-
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    {% block content %}
+        {% block css %}{% endblock %}   
+            
+    {% endblock %}
+</div>
+<!-- [ Main Content ] end -->
 </div>
 
-  <!--- jQuery -->
-  {% comment %} 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> 
-  {% endcomment %}
-  <script src="{% static '/adminlte/plugins/jquery/jquery.min.js' %}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <script src="{% static '/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>  
-  <script src="{% static '/adminlte/dist/js/adminlte.min.js' %}"></script>
-  <script src="{% static '/adminlte/dist/js/demo.js' %}"></script>
+<!-- <footer class="footer"> © 2024 Posgrado by <a href="#">Mishael Rojas Valiente</a> </footer>-->
 
-  <script src="{% static '/adicionales/bootstrap.bundle.min.js' %}" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+    <!-- Required Js -->
+    <script src="{% static '/assets/js/vendor-all.min.js' %}"></script>
+    <!-- <script src="{% static '/assets/js/plugins/bootstrap.min.js' %}"></script>  -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+
+
+    <script src="{% static '/assets/js/plugins/feather.min.js' %}"></script>
+    <script src="{% static '/assets/js/pcoded.min.js' %}"></script> 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js'"></script> -->
+    <script src="{% static '/assets/js/plugins/clipboard.min.js' %}"></script>
+    <!-- <script src="{% static '/assets/js/uikit.min.js' %}"></script> -->
+
+    <!-- Apex Chart -->
+    <script src="{% static '/assets/js/plugins/apexcharts.min.js' %}"></script>
+    <!-- <script>
+        $("body").append('<div class="fixed-button active"><a href="https://1.envato.market/VGznk" target="_blank" class="btn btn-md btn-success"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro</a> </div>');
+    </script> -->
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('logout-button').addEventListener('click', function (event) {
@@ -224,7 +238,39 @@
       });
     });
   </script>
-{% block js %}
-{% endblock %}
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            window.location.href = '/auth/login/';
+            return;
+        }
+
+        fetch('/user/', {  // Usa la ruta configurada en urls.py
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('username-display1').textContent = `${data.username}`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('username-display1').textContent = 'Error al cargar el usuario';
+        });
+
+        document.getElementById('logout-button').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            window.location.href = '/auth/login/';
+        });
+    });
+  </script>
+<!-- custom-chart js -->
+<!-- <script src="{% static '/assets/js/pages/dashboard-sale.js' %}"></script> -->
+{% block js %}{% endblock %} 
 </body>
 </html>
