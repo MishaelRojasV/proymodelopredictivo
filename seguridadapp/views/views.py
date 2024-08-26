@@ -51,6 +51,8 @@ def home_view(request):
         return redirect('login')  
     return render(request, 'home.html') 
 
+def register_view(request):
+    return render(request, 'register.html') 
 
 @api_view(['POST'])
 def profile(request):
