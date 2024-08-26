@@ -30,8 +30,14 @@ def chatbot_response(request):
         session_key = request.session.session_key or request.session.create()
         memory = request.session.get('memory', [])
         chatbot_service = ChatbotService(openai_api_key=OPENAI_API_KEY,paciente=paciente,diagnosticos=diagnosticos)
-        response_message, memory = chatbot_service.get_response(user_input, memory)
-        request.session['memory'] = memory
+        if "imagen" in user_input.lower() or "image" in user_input.lower():
+            image_url = chatbot_service.generate_image(prompt="Imagen del cerebro humano afectado por ACV")
+            response_message = f"Aquí tienes la imagen que solicitaste: {image_url}"
+        else:
+            response_message, memory = chatbot_service.get_response(user_input, memory)
+            request.session['memory'] = memory
+        # response_message, memory = chatbot_service.get_response(user_input, memory)
+        # request.session['memory'] = memory
         print(f"Session Key: {request.session.session_key}")
         response = Response({"response": response_message}, status=status.HTTP_200_OK)
         response.set_cookie(key='sessionid', value=request.session.session_key)
