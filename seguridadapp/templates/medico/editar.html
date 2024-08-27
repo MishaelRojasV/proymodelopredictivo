@@ -1,0 +1,87 @@
+{% extends "plantilla.html" %}
+{% block title %} NEURO IA | Editar Médico {% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="pcoded-content">
+
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">MÉDICOS</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item">Actualizar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header ml-5">
+                    <h5>ACTUALIZAR MÉDICOS</h5>                                    
+                </div>
+                <div class="card-body">
+                    <form method="post" class="">
+                        {% csrf_token %}
+                        <div class="row px-3 py-2">           
+                            <!-- Usuarios -->
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">{{ form.nombres | as_crispy_field }}</div>     
+                                    <div class="col-lg-3 col-md-3 col-sm-12"></div>                                
+                                    <div class="col-lg-3 col-md-3 col-sm-12">{{ form.user | as_crispy_field }}</div>                                                                                   
+                                </div>    
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">{{ form.apPaterno | as_crispy_field }}</div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">{{ form.apMaterno | as_crispy_field }}</div>                        
+                                </div>        
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">{{ form.email | as_crispy_field }}</div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">{{ form.celular | as_crispy_field }}</div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">{{ form.genero | as_crispy_field }}</div>                                              
+                                </div>              
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-6 col-sm-12">{{ form.fecha_nacimiento | as_crispy_field }}</div>                
+                                </div> 
+                                <div class="row mt-3">
+                                    <div class="col-lg-6 col-md-6 col-sm-12"><button type="submit" class="btn" style="width: 100%; background-color: #343a40; font-size: 12px; color: white;"><b>GUARDAR</b></button></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12"><a href="{% url 'listar_medicos' %}" class="btn" style="width: 100%; background-color: rgb(231, 237, 247); font-size: 12px; color: black;"><b>CANCELAR</b></a></div>
+                                </div>                      
+                            </div>
+                        </div>                           
+                    </form>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block js %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
+    <!-- Mensaje de exito -->
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                "title": "Éxito",
+                "text":"{{m}}",
+                "icon":"success"
+                })
+                console.log("{{m}}")
+            </script>
+        {% endfor %}
+    {% endif %}  
+    
+{% endblock %}
+

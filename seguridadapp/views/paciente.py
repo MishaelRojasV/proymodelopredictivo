@@ -4,7 +4,23 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from seguridadapp.models import Paciente
+from django.shortcuts import render, redirect,  get_object_or_404
+from django.http import JsonResponse
+from django.contrib import messages
+from seguridadapp.forms import *
 
+#---------------------------------------------Listar pacientes---------------------------------------------
+#@login_required(login_url='login')
+def listar_pacientes(request):
+    return render(request, 'paciente/listar.html')
+
+#@login_required(login_url='login')
+def listar_pacientes_json(request):       
+    pacientes = list(Paciente.objects.values())
+    data = {'pacientes':pacientes}
+    return JsonResponse(data)
+
+#---------------------------------------------Api pacientes---------------------------------------------
 @api_view(['POST'])
 def register_paciente(request):
     serializer = PacienteSerializer(data=request.data)
@@ -26,3 +42,27 @@ def update_paciente(request, pk):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#---------------------------------------------Editar paciente---------------------------------------------
+#@login_required(login_url='login')
+def actualizar_paciente(request, id):
+    paciente = get_object_or_404(Paciente, pk=id)
+    if request.method == 'POST':
+        form = EditarPacienteForm(request.POST, instance=paciente)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Paciente {paciente} actualizado exitosamente.')
+            return redirect('listar_pacientes')
+        else:
+            messages.error(request, "El formulario contiene errores. Por favor, corrija")
+    else:
+        form = EditarPacienteForm(instance=paciente)
+    return render(request, 'paciente/editar.html', {'form': form})
+
+#------------------------------------------Eliminar paciente ------------------------------------------------
+#@login_required
+def eliminar_paciente(request, id):
+    paciente = get_object_or_404(Paciente, pk=id)   
+    paciente.delete()
+    messages.success(request, 'Paciente eliminado exitosamente.')
+    return redirect('listar_pacientes')

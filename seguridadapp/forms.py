@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from seguridadapp.models import Paciente, Medico
+
 
 #-------------------------------------- Formulario para Crear Uusario-------------------------------------
 class CrearUserForm(forms.ModelForm):
@@ -39,3 +41,48 @@ class EditarUserForm(forms.ModelForm):
             'is_active': ('Indica si este usuario debe ser tratado como activo. Desactive esto en lugar de eliminar cuentas.'),
             'is_superuser': ('Designa que este usuario tiene todos los permisos sin asignarlos explícitamente.'),
         }
+
+#-------------------------------Formulario para Editar Paciente----------------------------------
+class EditarPacienteForm(forms.ModelForm):    
+    class Meta:
+        model = Paciente
+        fields = ['nombres','apPaterno','apMaterno','email','celular','genero','fecha_nacimiento']
+
+    def __init__(self, *args, **kwargs):
+        super(EditarPacienteForm, self).__init__(*args, **kwargs)
+        self.fields['genero'].disabled = True
+        self.fields['fecha_nacimiento'].disabled = True
+
+#-------------------------------Formulario para Crear Medico----------------------------------
+class CrearMedicoForm(forms.ModelForm):    
+    GENERO_CHOICES = [
+        ('Masculino', 'Masculino'),
+        ('Femenino', 'Femenino'),
+    ]
+
+    genero = forms.ChoiceField(choices=GENERO_CHOICES)
+    fecha_nacimiento = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+    class Meta:
+        model = Medico
+        fields = ['nombres','apPaterno','apMaterno','email','celular','genero','fecha_nacimiento', 'user']
+
+    def __init__(self, *args, **kwargs):
+        super(CrearMedicoForm, self).__init__(*args, **kwargs)
+        # Filtrar usuarios que no estén ya asociados ni a un médico ni a un paciente
+        usuarios_ocupados_medicos = Medico.objects.values_list('user', flat=True)
+        usuarios_ocupados_pacientes = Paciente.objects.values_list('user', flat=True)
+        usuarios_ocupados = list(usuarios_ocupados_medicos) + list(usuarios_ocupados_pacientes)
+        self.fields['user'].queryset = User.objects.exclude(id__in=usuarios_ocupados)
+
+#-------------------------------Formulario para Editar Medico----------------------------------
+class EditarMedicoForm(forms.ModelForm):    
+    class Meta:
+        model = Medico
+        fields = ['nombres','apPaterno','apMaterno','email','celular','genero','fecha_nacimiento', 'user']
+
+    def __init__(self, *args, **kwargs):
+        super(EditarMedicoForm, self).__init__(*args, **kwargs)
+        self.fields['genero'].disabled = True
+        self.fields['fecha_nacimiento'].disabled = True
+        self.fields['user'].disabled = True

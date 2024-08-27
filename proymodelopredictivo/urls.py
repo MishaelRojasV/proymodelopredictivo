@@ -32,6 +32,9 @@ urlpatterns = [
 
     #Paciente
     path('paciente/', include('seguridadapp.routes.paciente')),
+    
+    #medicos
+    path('medico/', include('seguridadapp.routes.medico')),
 
     #Prediccion
     path('api/acv1/create/', create_diagnostico,name="acv1"),
