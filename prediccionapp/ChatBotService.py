@@ -76,7 +76,7 @@ class ChatbotService:
                 f"Nivel de Glucosa Promedio: {diagnostico.Nivel_GlucosaPromedio}, "
                 f"Tipo de Trabajo: {diagnostico.TipoTrabajo}, "
                 f"Índice de Masa Corporal (IMC): {diagnostico.ICM}, "
-                f"Estado de Fumador: {'Sí' if diagnostico.EstadoFumador == 1 else 'No'}, "
+                f"Estado de Fumador: {diagnostico.EstadoFumador}, "
                 f"Predicción de ACV: {'Positiva' if diagnostico.prediccion == 1 else 'Negativa'}"
             )
             diagnosticos_str.append(diagnostico_info)
