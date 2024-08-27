@@ -28,20 +28,16 @@ def chatbot_response(request):
         if not user_input:
             return Response({"error": "El campo 'message' es requerido."}, status=status.HTTP_400_BAD_REQUEST)
         session_key = request.session.session_key or request.session.create()
-        memory = request.session.get('memory', [])
         chatbot_service = ChatbotService(openai_api_key=OPENAI_API_KEY,paciente=paciente,diagnosticos=diagnosticos)
         if "imagen" in user_input.lower() or "image" in user_input.lower():
             image_url = chatbot_service.generate_image(prompt="Imagen del cerebro humano afectado por ACV")
             response_message = f"Aquí tienes la imagen que solicitaste: {image_url}"
         else:
-            response_message, memory = chatbot_service.get_response(user_input, memory)
-            request.session['memory'] = memory
-        # response_message, memory = chatbot_service.get_response(user_input, memory)
-        # request.session['memory'] = memory
-        print(f"Session Key: {request.session.session_key}")
+            response_message = chatbot_service.get_response(user_input)
+            chatbot_service.save_message(user_id=paciente.idPaciente, role='user', content=user_input)
+            chatbot_service.save_message(user_id=paciente.idPaciente, role='assistant', content=response_message)
         response = Response({"response": response_message}, status=status.HTTP_200_OK)
         response.set_cookie(key='sessionid', value=request.session.session_key)
-        print(f"Cookies enviadas: {response.cookies}")
         return Response({"response": response_message}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
