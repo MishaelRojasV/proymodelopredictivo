@@ -2,10 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .serializers import DiagnosticoSerializer,DiagnosticoGetSerializer
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
 from datetime import date, datetime
 from seguridadapp.models import Diagnostico, Paciente
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import status
 from .models import predict
 from django.core.mail import EmailMessage
@@ -14,6 +15,11 @@ from django.conf import settings
 from .ChatBotService import ChatbotService
 from django.contrib.sessions.models import Session
 from decouple import config
+from seguridadapp.forms import *
+import requests
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
+
 
 OPENAI_API_KEY = config('OPENAI_API_KEY')
     
@@ -60,12 +66,19 @@ def get_diagnostico(request):
 
 # Prediccion para el ACV 01 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_diagnostico(request):
     serializer = DiagnosticoSerializer(data=request.data)
     
     if serializer.is_valid():
-        paciente = request.user.paciente 
-        
+        if not request.user.is_authenticated:
+            return Response({'error': 'Usuario no autenticado.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        try:
+            paciente = request.user.paciente
+        except AttributeError:
+            return Response({'error': 'No se pudo encontrar el paciente asociado al usuario.'}, status=status.HTTP_400_BAD_REQUEST)
+            
         # Calcular la edad
         today = datetime.today().date()
         birth_date = paciente.fecha_nacimiento
@@ -158,10 +171,13 @@ def create_diagnostico(request):
         # return Response({'prediccion': diagnostico.prediccion}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 #Form acv01
-@login_required(login_url='login')
+#@login_required
 def prediction_form(request):
-    user = request.user
-    request.session['userName_logged'] = user.get_full_name()
-    return render(request, 'form-acv1.html',{'userNameLogged':request.session['userName_logged']} )
+    return render(request, 'form-acv1.html') 
+
+
+
+def lista_diagnostico(request):
+    """ datos = Diagnostico.objects.all() """
+    return render(request, 'listar-diagnosticos.html')

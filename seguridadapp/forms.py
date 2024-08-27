@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from seguridadapp.models import Paciente, Medico
+from seguridadapp.models import Paciente, Medico, Diagnostico
+from datetime import date
 
 
 #-------------------------------------- Formulario para Crear Uusario-------------------------------------
@@ -86,3 +87,46 @@ class EditarMedicoForm(forms.ModelForm):
         self.fields['genero'].disabled = True
         self.fields['fecha_nacimiento'].disabled = True
         self.fields['user'].disabled = True
+
+#-------------------------------Formulario para Diagnostico 01----------------------------------
+class DiagnosticoForm(forms.ModelForm):
+    GENERO_CHOICES = [
+        ('0', 'Femenino'),
+        ('1', 'Masculino'),
+    ]
+
+    ESTADO_FUMADOR_CHOICES = [
+        ('0', 'No opina'),
+        ('1', 'Anteriormente fumó'),
+        ('2', 'Nunca fumó'),
+        ('3', 'Fuma'),
+    ]
+
+    TIPO_TRABAJO_CHOICES = [
+        ('0', 'Trabajador para el gobierno'),
+        ('1', 'Nunca trabajó'),
+        ('2', 'Trabajador privado'),
+        ('3', 'Trabajador por cuenta propia'),
+    ]
+
+    Genero = forms.ChoiceField(choices=GENERO_CHOICES)
+    EstadoFumador = forms.ChoiceField(choices=ESTADO_FUMADOR_CHOICES)
+    TipoTrabajo = forms.ChoiceField(choices=TIPO_TRABAJO_CHOICES)
+    fechaRegistro = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+    class Meta:
+        model = Diagnostico
+        fields = ['Genero', 'Edad', 'Hipertension', 'Cardiopatia', 'Nivel_GlucosaPromedio', 'ICM', 'EstadoFumador', 'TipoTrabajo']
+
+    def __init__(self, *args, **kwargs):
+        paciente = kwargs.pop('paciente', None)
+        super(DiagnosticoForm, self).__init__(*args, **kwargs)
+        
+        if paciente:
+            # Jalar el género del paciente
+            self.fields['Genero'].initial = '1' if paciente.genero == 'M' else '0'
+            
+            # Calcular la edad según la fecha de nacimiento
+            today = date.today()
+            born = paciente.fecha_nacimiento
+            self.fields['Edad'].initial = today.year - born.year - ((today.month, today.day) < (born.month, born.day))

@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from seguridadapp.models import Paciente
 from django.shortcuts import render, redirect,  get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib import messages
 from seguridadapp.forms import *
@@ -66,3 +67,4 @@ def eliminar_paciente(request, id):
     paciente.delete()
     messages.success(request, 'Paciente eliminado exitosamente.')
     return redirect('listar_pacientes')
+
