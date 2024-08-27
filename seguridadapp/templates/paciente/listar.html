@@ -1,0 +1,189 @@
+{% extends "plantilla.html" %}
+{% block title %} NEURO IA | Pacientes {% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="pcoded-content">
+    <!-- [ breadcrumb ] start -->
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">PACIENTES</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item">Listado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ breadcrumb ] end -->
+    <!-- [ Main Content ] start -->
+    <div class="row ">
+        <!-- customer-section start -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5>LISTADO DE PACIENTES</h5>    
+                    <!-- <a href="" class="btn  btn-secondary btn-sm "><i class="fa fa-plus-square"></i> NUEVO</a>           -->                           
+                </div>
+                <div class="pro-scroll">
+                    <div class="card-body table-border-style">
+                        <div class="table-responsive">
+                            <table class="table table-sm my-3" id="tablapaciente" style="width:100%">
+                                <thead class="table">
+                                    <tr>                               
+                                        <th><center>Id</center></th>
+                                        <th><center>Nombres y Apellidos</center></th>                         
+                                        <th><center>Email</center></th>
+                                        <th><center>Celular</center></th>                                  
+                                        <th><center>Genero</center></th>
+                                        <th><center>F. Nacimiento</center></th>                                  
+                                        <th><center>Acciones</center></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablebody_pacientes">
+                                </tbody>                       
+                            </table>        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- customer-section end -->
+    </div>
+    <!-- [ Main Content ] end -->
+</div>
+
+{% endblock content %}
+
+{% block js %}
+<!-- Libreria DAtatables.js -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.2/js/dataTables.js"></script> 
+<script src="https://cdn.datatables.net/2.1.2/js/dataTables.bootstrap4.js"></script> 
+
+<!-- Libreria DAtatables.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.bootstrap4.css"> 
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Mensaje de exito -->
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                "title": "Éxito",
+                "text":"{{m}}",
+                "icon":"success"
+                })
+                console.log("{{m}}")
+            </script>
+        {% endfor %}
+    {% endif %}
+
+
+    <!-- Datatables -->
+    <script>
+        let dataTable;
+        let dataTableIsInitialized = false;
+
+        const dataTableOptions = {        
+            columnDefs: [               
+                { orderable: false, targets: [3, 4, 5]},
+                { searchable: false, targets: [0, 3, 4, 5] }
+            ],
+            pageLength: 10,
+            destroy: true,
+            language:{
+                lengthMenu: "Mostrar  _MENU_",
+                zeroRecords: "Ningun registro encontrado",
+                info: "",
+                infoEmpty: "",
+                infoFiltered: "",
+                search: "Buscar: ",
+                loadingRecords: "Cargando...",
+                paginate:{
+                    first: "<<",
+                    last: ">>",
+                    next: ">",
+                    previous: "<"
+                }
+            },                                            
+        };
+
+        const initDataTable = async () => {
+            if (dataTableIsInitialized) {
+                dataTable.destroy();
+            }
+            await listaUsuarios();
+            dataTable = $("#tablapaciente").DataTable(dataTableOptions);
+            dataTableIsInitialized = true;
+        };
+
+
+        const listaUsuarios = async (estado) => {
+            try {
+                const response = await fetch("/paciente/listar_pacientes_json");
+                const data = await response.json();
+                let content = ``;
+                data.pacientes.forEach((item_paciente) => {
+                    const editUrl = `/paciente/edit/${item_paciente.idPaciente}/`;
+                    content += `
+                        <tr>                            
+                            <td><center>${item_paciente.idPaciente}</center></td>                    
+                            <td>${item_paciente.nombres}  ${item_paciente.apPaterno} ${item_paciente.apMaterno}</td>                                                           
+                            <td>${item_paciente.email}</td>
+                            <td>${item_paciente.celular}</td>
+                            <td>${item_paciente.genero}</td>
+                            <td>${item_paciente.fecha_nacimiento}</td>
+                            <td>
+                                <center>                                    
+                                    <a href="${editUrl}" class="btn btn-sm btn-success" style=" color: white;"><i class='fa fa-edit'></i></a>
+                                    <button onclick="eliminarPaciente(${item_paciente.idPaciente})" class='btn btn-sm btn-danger'><i class='fa-solid fa-trash-can'></i></button>
+                                </center>
+                            </td>
+                        </tr>`
+                        ;
+                });
+                tablebody_pacientes.innerHTML = content;
+                
+            } catch (ex) {
+                alert(ex);
+            }
+        };
+
+        window.addEventListener("load", async () => {          
+            await initDataTable();
+        });
+
+    </script>
+
+    <!-- Eliminar un usuario -->
+    <script>
+        function eliminarPaciente(id){
+            Swal.fire({
+                title: "¿Realmente deseas eliminar este paciente?",
+                text: "ID del usuario: " + id,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#A19D9C',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'No, cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `/paciente/delete/${id}/`;
+                }
+            });
+        }
+    </script>
+
+{% endblock %}

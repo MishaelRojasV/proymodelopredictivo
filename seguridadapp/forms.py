@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from seguridadapp.models import Paciente
+
 
 #-------------------------------------- Formulario para Crear Uusario-------------------------------------
 class CrearUserForm(forms.ModelForm):
@@ -39,3 +41,14 @@ class EditarUserForm(forms.ModelForm):
             'is_active': ('Indica si este usuario debe ser tratado como activo. Desactive esto en lugar de eliminar cuentas.'),
             'is_superuser': ('Designa que este usuario tiene todos los permisos sin asignarlos explícitamente.'),
         }
+
+#-------------------------------Formulario para Editar Paciente----------------------------------
+class EditarPacienteForm(forms.ModelForm):    
+    class Meta:
+        model = Paciente
+        fields = ['nombres','apPaterno','apMaterno','email','celular','genero','fecha_nacimiento']
+
+    def __init__(self, *args, **kwargs):
+        super(EditarPacienteForm, self).__init__(*args, **kwargs)
+        self.fields['genero'].disabled = True
+        self.fields['fecha_nacimiento'].disabled = True
