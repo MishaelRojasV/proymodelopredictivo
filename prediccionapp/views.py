@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .serializers import DiagnosticoSerializer,DiagnosticoGetSerializer
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated
 from datetime import date, datetime
 from seguridadapp.models import Diagnostico, Paciente
@@ -18,6 +18,8 @@ from decouple import config
 from seguridadapp.forms import *
 import requests
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
+
 
 OPENAI_API_KEY = config('OPENAI_API_KEY')
     
@@ -173,3 +175,9 @@ def create_diagnostico(request):
 #@login_required
 def prediction_form(request):
     return render(request, 'form-acv1.html') 
+
+
+
+def lista_diagnostico(request):
+    """ datos = Diagnostico.objects.all() """
+    return render(request, 'listar-diagnosticos.html')

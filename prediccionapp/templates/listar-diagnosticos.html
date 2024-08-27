@@ -1,0 +1,238 @@
+{% extends "plantilla.html" %}
+{% block title %} NEURO IA | Detalle de Diagnostico {% endblock title %}
+{% load static %}
+
+{% block css %}
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="pcoded-content">
+    <!-- [ breadcrumb ] start -->
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">DETALLE DIAGNÓSTICOS</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item">Listado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ breadcrumb ] end -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>ITEMS DE DIAGNÓSTICOS | Leyenda</h5>  
+                </div>
+                <div class="card-body">
+                    <div type="button" class="btn btn-sm btn-primary"><span class="badge badge-light-primary">1</span> HIPERTENSIÓN</div>
+                    <div type="button" class="btn btn-sm btn-secondary"><span class="badge badge-light-secondary">2</span> CARDIOPATIA</div>
+                    <div type="button" class="btn btn-sm btn-info"><span class="badge badge-light-info">3</span> N.GLUCOSA</div>
+                    <div type="button" class="btn btn-sm btn-danger"><span class="badge badge-light-danger">4</span> ICM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- [ Main Content ] start -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="my-2">DETALLE DIAGNÓSTICOS</h5>
+                </div>
+                <div class="pro-scroll">
+                    <div class="card-body table-border-style">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="tabladetallesustentaciones">
+                                <thead class="table table-sm my-3">
+                                    <tr>
+                                        <th><center>ID</center></th>
+                                        <th><center>PACIENTE</center></th>
+                                        <th><center>EDAD</center></th>
+                                        <th><center><span style="font-size: 18px;" class="badge badge-light-primary">1</span></center></th>
+                                        <th><center><span style="font-size: 18px;" class="badge badge-light-secondary">2</span></center></th>
+                                        <th><center><span style="font-size: 18px;" class="badge badge-light-info">3</span></center></th>
+                                        <th><center><span style="font-size: 18px;" class="badge badge-light-danger">4</span></center></th>
+                                        <th><center>FUMADOR</center></th>
+                                        <th><center>TRABAJO</center></th>
+                                        <th><center>PREDICCIÓN</center></th>
+                                        <th><center>FECHA</center></th>
+                                        <th><center>ACCIONES</center></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if datos %}
+                                    {% for item_datos in datos %}
+                                    <tr>
+                                        <td>{{ item_datos.idDiagnostico }}</td>
+                                        <td>Nombre</td>
+                                        <td>{{ item_datos.Edad }}</td>
+                                        {% if item_datos.Hipertension == 1.0 %}
+                                        <td style="text-align: center;">
+                                            <center><span class="badge badge-pill badge-light-success" style="font-size: 14px;">SI</span></center>
+                                        </td>
+                                        {% else %}
+                                        <td style="text-align: center;">
+                                            <center><span class="badge badge-pill badge-light-danger" style="font-size: 12px;">NO</span></center>
+                                        </td>
+                                        {% endif %}                                       
+                                        {% if item_datos.Cardiopatia == 1.0 %}
+                                        <td style="text-align: center;">
+                                            <center><span class="badge badge-pill badge-light-success" style="font-size: 14px;">SI</span></center>
+                                        </td>
+                                        {% else %}
+                                        <td style="text-align: center;">
+                                            <center><span class="badge badge-pill badge-light-danger" style="font-size: 12px;">NO</span></center>
+                                        </td>
+                                        {% endif %}
+                                        <td><center>{{ item_datos.Nivel_GlucosaPromedio }}</center></td>
+                                        <td><center>{{ item_datos.ICM }}</center></td>
+                                        <td><center>{{ item_datos.EstadoFumador }}</center></td>
+                                        <td><center>{{ item_datos.TipoTrabajo }}</center></td>
+                                        {% if item_datos.prediccion == 0 %}
+                                        <td style="text-align: center;">
+                                            <center><span class="badge badge-pill badge-light-success" style="font-size: 12px;">POSITIVO</span></center>
+                                        </td>
+                                        {% else %}
+                                        <td style="text-align: center;">
+                                            <center><span class="badge badge-pill badge-light-warning" style="font-size: 12px;">NEGATIVO</span></center>
+                                        </td>
+                                        {% endif %}
+                                        <td><center>{{ item_datos.fechaRegistro }}</center></td>
+                                        <td>
+                                            <a href="" class="btn btn-danger btn-sm"><i class="fa-solid fa-eraser"></i></a>
+                                            <a href="" class="btn btn-info btn-sm"><i class="fa-solid fa-chart-pie"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr style="text-align: center;">
+                                        <td colspan="11">
+                                            <p>No hay Registros</p>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- [ Main Content ] end -->
+    
+</div>
+
+
+{% endblock content %}
+
+
+{% block js %}
+
+<!-- Libreria DAtatables.js -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.2/js/dataTables.js"></script> 
+<script src="https://cdn.datatables.net/2.1.2/js/dataTables.bootstrap4.js"></script> 
+
+<!-- Libreria DAtatables.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.bootstrap4.css"> 
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Obtener el token de autenticación desde localStorage
+    const authToken = localStorage.getItem('token');
+
+    // Función para obtener datos y llenar la tabla
+    function fetchDiagnosticos() {
+        fetch('/api/acv1/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${authToken}`, // Incluye el token de autenticación
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Datos de diagnóstico:', data);
+            populateTable(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Llamar a la función para cargar los datos al cargar la página
+    fetchDiagnosticos();
+
+    // Función para llenar la tabla con los datos recibidos
+    function populateTable(datos) {
+        const tableBody = document.querySelector('#tabladetallesustentaciones tbody');
+        tableBody.innerHTML = ''; // Limpiar el contenido actual de la tabla
+
+        if (datos.length === 0) {
+            tableBody.innerHTML = `
+                <tr style="text-align: center;">
+                    <td colspan="11">No hay Registros</td>
+                </tr>
+            `;
+            return;
+        }
+
+        datos.forEach(item => {
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+                <td><center>${item.idDiagnostico}</center></td>
+                <td><center>Nombre del Paciente</center></td> <!-- Puedes cambiar esto para mostrar el nombre real -->
+                <td><center>${item.Edad}</center></td>
+                <td style="text-align: center;">
+                    <center><span class="badge badge-pill badge-light-${item.Hipertension === 1.0 ? 'success' : 'danger'}" style="font-size: 12px;">
+                        ${item.Hipertension === 1.0 ? 'SI' : 'NO'}
+                    </span></center>
+                </td>
+                <td style="text-align: center;">
+                    <center><span class="badge badge-pill badge-light-${item.Cardiopatia === 1.0 ? 'success' : 'danger'}" style="font-size: 12px;">
+                        ${item.Cardiopatia === 1.0 ? 'SI' : 'NO'}
+                    </span></center>
+                </td>
+                <td><center>${item.Nivel_GlucosaPromedio}</center></td>
+                <td><center>${item.ICM}</center></td>
+                <td><center>${item.EstadoFumador}</center></td>
+                <td><center>${item.TipoTrabajo}</center></td>
+                <td style="text-align: center;">
+                    <center><span class="badge badge-pill badge-light-${item.prediccion === 0 ? 'success' : 'warning'}" style="font-size: 12px;">
+                        ${item.prediccion === 0 ? 'POSITIVO' : 'NEGATIVO'}
+                    </span></center>
+                </td>
+                <td><center>${item.fechaRegistro}</center></td>
+                <td>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-eraser"></i></a>
+                    <a href="#" class="btn btn-info btn-sm"><i class="fa-solid fa-chart-pie"></i></a>
+                </td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+    }
+});
+</script>
+
+{% endblock %}
