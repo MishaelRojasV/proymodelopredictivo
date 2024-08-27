@@ -69,61 +69,11 @@
                                         <th><center>TRABAJO</center></th>
                                         <th><center>PREDICCIÓN</center></th>
                                         <th><center>FECHA</center></th>
-                                        <th><center>ACCIONES</center></th>
+                                        <!-- <th><center>ACCIONES</center></th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% if datos %}
-                                    {% for item_datos in datos %}
-                                    <tr>
-                                        <td>{{ item_datos.idDiagnostico }}</td>
-                                        <td>Nombre</td>
-                                        <td>{{ item_datos.Edad }}</td>
-                                        {% if item_datos.Hipertension == 1.0 %}
-                                        <td style="text-align: center;">
-                                            <center><span class="badge badge-pill badge-light-success" style="font-size: 14px;">SI</span></center>
-                                        </td>
-                                        {% else %}
-                                        <td style="text-align: center;">
-                                            <center><span class="badge badge-pill badge-light-danger" style="font-size: 12px;">NO</span></center>
-                                        </td>
-                                        {% endif %}                                       
-                                        {% if item_datos.Cardiopatia == 1.0 %}
-                                        <td style="text-align: center;">
-                                            <center><span class="badge badge-pill badge-light-success" style="font-size: 14px;">SI</span></center>
-                                        </td>
-                                        {% else %}
-                                        <td style="text-align: center;">
-                                            <center><span class="badge badge-pill badge-light-danger" style="font-size: 12px;">NO</span></center>
-                                        </td>
-                                        {% endif %}
-                                        <td><center>{{ item_datos.Nivel_GlucosaPromedio }}</center></td>
-                                        <td><center>{{ item_datos.ICM }}</center></td>
-                                        <td><center>{{ item_datos.EstadoFumador }}</center></td>
-                                        <td><center>{{ item_datos.TipoTrabajo }}</center></td>
-                                        {% if item_datos.prediccion == 0 %}
-                                        <td style="text-align: center;">
-                                            <center><span class="badge badge-pill badge-light-success" style="font-size: 12px;">POSITIVO</span></center>
-                                        </td>
-                                        {% else %}
-                                        <td style="text-align: center;">
-                                            <center><span class="badge badge-pill badge-light-warning" style="font-size: 12px;">NEGATIVO</span></center>
-                                        </td>
-                                        {% endif %}
-                                        <td><center>{{ item_datos.fechaRegistro }}</center></td>
-                                        <td>
-                                            <a href="" class="btn btn-danger btn-sm"><i class="fa-solid fa-eraser"></i></a>
-                                            <a href="" class="btn btn-info btn-sm"><i class="fa-solid fa-chart-pie"></i></a>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                    {% else %}
-                                    <tr style="text-align: center;">
-                                        <td colspan="11">
-                                            <p>No hay Registros</p>
-                                        </td>
-                                    </tr>
-                                    {% endif %}
+
                                 </tbody>
                             </table>
                         </div>
@@ -223,10 +173,7 @@
                     </span></center>
                 </td>
                 <td><center>${item.fechaRegistro}</center></td>
-                <td>
-                    <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-eraser"></i></a>
-                    <a href="#" class="btn btn-info btn-sm"><i class="fa-solid fa-chart-pie"></i></a>
-                </td>
+
             `;
 
             tableBody.appendChild(row);

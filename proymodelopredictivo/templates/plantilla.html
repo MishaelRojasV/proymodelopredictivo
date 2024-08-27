@@ -97,10 +97,10 @@
 					<li class="pc-item">
 						<a href="{% url 'listar_medicos' %}" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-suitcase-medical"></i></span><span class="pc-mtext">Médicos</span></a>
 					</li>
-          <li class="pc-item">
+          			<li class="pc-item">
 						<a href="{% url 'listar_pacientes' %}" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-hospital-user"></i></i></span><span class="pc-mtext"> Pacientes</span></a>
 					</li>					
-          <li class="pc-item pc-caption">
+          			<li class="pc-item pc-caption">
 						<label>DIAGNÓSTICOS</label>prediction_form
 					</li>
 					<li class="pc-item">
@@ -109,12 +109,10 @@
 							<span class="pc-mtext">Diagnóstico de ACV</span>
 						</a>
 					</li>					
-          <li class="pc-item">
-						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-sharp fa-solid fa-list-check"></i></span><span class="pc-mtext">Estilo de Vida</span></a>
+          			<li class="pc-item">
+						<a href="{% url 'reportes' %}" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-chart-pie"></i></span><span class="pc-mtext">Reportes</span></a>
 					</li>
-          <li class="pc-item">
-						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-sharp fa-solid fa-list-check"></i></span><span class="pc-mtext">Factores Médicos</span></a>
-					</li>
+
 				</ul>
 			</div>
 		</div>
@@ -201,6 +199,7 @@
 
     <!-- Apex Chart -->
     <script src="{% static '/assets/js/plugins/apexcharts.min.js' %}"></script>
+	<script src="{% static 'assets/js/pages/chart-apex.js' %}"></script>
     <!-- <script>
         $("body").append('<div class="fixed-button active"><a href="https://1.envato.market/VGznk" target="_blank" class="btn btn-md btn-success"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro</a> </div>');
     </script> -->

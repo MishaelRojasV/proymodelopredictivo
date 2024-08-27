@@ -19,7 +19,8 @@ from seguridadapp.forms import *
 import requests
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
-
+from django.utils.dateparse import parse_datetime
+from django.core.exceptions import ValidationError
 
 OPENAI_API_KEY = config('OPENAI_API_KEY')
     
@@ -58,6 +59,49 @@ def get_diagnostico(request):
         diagnosticos = Diagnostico.objects.filter(idPaciente=paciente)
         if not diagnosticos.exists():
             return Response({'message': 'No se encontraron diagnósticos para este paciente.'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = DiagnosticoGetSerializer(diagnosticos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+def get_diagnostico_filtro(request):
+    try:
+        paciente = request.user.paciente
+        if not paciente:
+            return Response({'error': 'Paciente no asociado con el usuario.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Obtener los parámetros de fecha desde la consulta
+        start_date = request.GET.get('start_date')
+        end_date = request.GET.get('end_date')
+        
+        # Validar y convertir las fechas
+        if start_date:
+            try:
+                start_date = parse_datetime(start_date)
+                if start_date is None:
+                    raise ValidationError("Fecha de inicio inválida.")
+            except (ValueError, ValidationError) as e:
+                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if end_date:
+            try:
+                end_date = parse_datetime(end_date)
+                if end_date is None:
+                    raise ValidationError("Fecha de fin inválida.")
+            except (ValueError, ValidationError) as e:
+                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Filtrar diagnósticos por fechas si se proporcionan
+        diagnosticos = Diagnostico.objects.filter(idPaciente=paciente)
+        if start_date:
+            diagnosticos = diagnosticos.filter(fechaRegistro__gte=start_date)
+        if end_date:
+            diagnosticos = diagnosticos.filter(fechaRegistro__lte=end_date)
+
+        if not diagnosticos.exists():
+            return Response({'message': 'No se encontraron diagnósticos para este paciente en el rango de fechas dado.'}, status=status.HTTP_404_NOT_FOUND)
+        
         serializer = DiagnosticoGetSerializer(diagnosticos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
@@ -176,7 +220,8 @@ def create_diagnostico(request):
 def prediction_form(request):
     return render(request, 'form-acv1.html') 
 
-
+def reportes(request):
+    return render(request, 'reportes.html') 
 
 def lista_diagnostico(request):
     """ datos = Diagnostico.objects.all() """

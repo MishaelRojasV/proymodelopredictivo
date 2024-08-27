@@ -1,4 +1,4 @@
-'use strict';
+/* 'use strict';
 $(document).ready(function() {
     setTimeout(function() {
         $(function() {
@@ -85,59 +85,44 @@ $(document).ready(function() {
         $(function() {
             var options = {
                 chart: {
-                    height: 350,
-                    type: 'bar',
+                    height: 300,
+                    type: 'line',  // Cambiado a gráfico de líneas
                 },
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        columnWidth: '55%',
-                        endingShape: 'rounded'
-                    },
+                title: {
+                    text: 'Comparación de Series Temporal',  // Título agregado
+                    align: 'center'
                 },
                 dataLabels: {
                     enabled: false
                 },
-                colors: ["#0e9e4a", "#7267EF", "#EA4D4D"],
                 stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ['transparent']
+                    curve: 'smooth'
                 },
+                colors: ["#1E90FF", "#32CD32"],  // Colores Azul y Verde
                 series: [{
-                    name: 'Net Profit',
-                    data: [44, 55, 57, 56, 61, 58, 63]
+                    name: 'Serie A',
+                    data: [45, 55, 60, 70, 80, 95, 110]  // Nuevos datos
                 }, {
-                    name: 'Revenue',
-                    data: [76, 85, 101, 98, 87, 105, 91]
-                }, {
-                    name: 'Free Cash Flow',
-                    data: [35, 41, 36, 26, 45, 48, 52]
+                    name: 'Serie B',
+                    data: [30, 40, 50, 60, 65, 85, 95]  // Nuevos datos
                 }],
+    
                 xaxis: {
-                    categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-                },
-                yaxis: {
-                    title: {
-                        text: '$ (thousands)'
-                    }
-                },
-                fill: {
-                    opacity: 1
-
+                    type: 'datetime',
+                    categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],
                 },
                 tooltip: {
-                    y: {
-                        formatter: function(val) {
-                            return "$ " + val + " thousands"
-                        }
-                    }
+                    x: {
+                        format: 'MM/dd/yyyy HH:mm'  // Formato de fecha modificado
+                    },
                 }
             }
+    
             var chart = new ApexCharts(
-                document.querySelector("#bar-chart-1"),
+                document.querySelector("#area-chart-1"),
                 options
             );
+    
             chart.render();
         });
         $(function() {
@@ -268,3 +253,4 @@ $(document).ready(function() {
         });
     }, 700);
 });
+ */
