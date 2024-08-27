@@ -40,7 +40,7 @@ urlpatterns = [
     path('api/acv1/create/', create_diagnostico,name="acv1"),
     path('api/acv1/', get_diagnostico,name="get_diagnostico"),
     path('api/acv1/chatbot/',chatbot_response,name="chatbot_response" ), 
-    # path('prediccion/', prediction_form, name='prediction_form'),
+    path('prediccion/', prediction_form, name='prediction_form'),
 
     path('api/acv2/create/', create_diagnostico2,name="acv2"),
     path('prediccion2/', prediction_form2, name='prediction2_form'),

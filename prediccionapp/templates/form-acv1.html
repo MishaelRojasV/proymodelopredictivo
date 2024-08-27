@@ -1,147 +1,142 @@
 {% extends "plantilla.html" %}
-{% block title %} PREDICTIVE | Predicción  {% endblock title %}
+{% block title %} NEURO IA | Diagnóstico ACV  {% endblock title %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-<style>
-    .card-header{       
-        color: white;
-        background: #56CCF2; 
-        background: -webkit-linear-gradient(to left, #56CCF2, #2F80ED);
-        background: linear-gradient(to left,  #56CCF2, #2F80ED);
-    }
-    label{
-        color: black;
-    }
-    hr{
-        background-color: black;
-    }
-</style>
+<div class="pcoded-content">
 
-<div class="px-5">
-    <div class="card mx-5 my-4 ">
-        <div class="card-header">
-            <h4 class="card-title pl-5 pt-2" style="font-size: 18px;"><i class="fa-solid fa-plus mr-2"></i><b> PREDICCIÓN DE RIESGO </b></h4>         
-        </div>       
-        <div class="card-body px-5" >            
-            <form id="prediction-form">
-                {% csrf_token %}
-                <h5 style="color: black;">Datos Personales</h5>
-                <hr style="color: black;">
-                <div class="row">
-                    <div class="col-6 col-sm-5">
-                        <label for="">Nombre</label>
-                        <input type="text" class="form-control" name="" id="" value="{{userNameLogged}}" disabled>      
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">DIAGNÓSTICOS</h5>
                     </div>
-                    <div class="col-6 col-sm-1"></div>
-                    <div class="col-4 col-sm-4">
-                        <div class="form-group">
-                            <label for="Genero">Género</label>
-                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="Genero" name="Genero" required>
-                                <option value="" disabled selected>Seleccionar opción</option>
-                                <option value="0">Femenino</option>
-                                <option value="1">Masculino</option>
-                            </select>
-                        </div>        
-                    </div>
-                    <div class="col-4 col-sm-2">
-                        <div class="form-group">
-                            <label for="Edad">Edad</label>
-                            <input type="number" class="form-control" id="Edad" name="Edad" step="1" required>
-                        </div>
-                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item">Evaluación</li>
+                    </ul>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                <br>
-                <h5 style="color: black;">Datos Médicos</h5>
-                <hr style="color: black;">
-                
-                <div class="row">
-                    <div class="col-6 col-sm-2">                        
-                        <div class="form-group">
-                            <label for="Hipertension">Hipertensión</label>
-                            <select class="form-control" id="Hipertension" name="Hipertension" required>
-                                <option value="" disabled selected>Seleccionar opción</option>
-                                <option value="0">No</option>
-                                <option value="1">Sí</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-2">
-                        <div class="form-group">
-                            <label for="Cardiopatia">Cardiopatía</label>
-                            <select class="form-control" id="Cardiopatia" name="Cardiopatia" required>
-                                <option value="" disabled selected>Seleccionar opción</option>
-                                <option value="0">No</option>
-                                <option value="1">Sí</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-1"></div>
-                    <div class="col-6 col-sm-2">
-                        <div class="form-group">
-                            <label for="Nivel_GlucosaPromedio">Nivel de Glucosa</label>
-                            <input type="number" class="form-control" id="Nivel_GlucosaPromedio" name="Nivel_GlucosaPromedio" step="0.01" required>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-2">
-                        <div class="form-group">
-                            <label for="ICM">ICM</label>
-                            <input type="number" class="form-control" id="ICM" name="ICM"  step="0.01" required>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-3">
-                        <div class="form-group">
-                            <label for="EstadoFumador">Estado de Fumador</label>
-                            <select class="form-control" id="EstadoFumador" name="EstadoFumador" required>
-                                <option value="" disabled selected>Seleccionar opción</option>
-                                <option value="0">No opina</option>
-                                <option value="1">Anteriormente fumó </option>
-                                <option value="2">Nunca fumó</option>
-                                <option value="3">Fuma</option>
-                            </select>
-                        </div>
-                    </div>
+    <div class="row ">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header ml-5">
+                    <h5>REALIZAR DIAGNÓSTICO</h5>                                    
                 </div>
-
-                <br>
-                <h5 style="color: black;">Datos Sociales</h5>
-                <hr style="color: black;">
-                
-                <div class="row">
-                    <div class="col-6 col-sm-5">
-                        <div class="form-group">
-                            <label for="TipoTrabajo">Tipo de Trabajo</label>
-                            <select style="background-color: #fff; border-color: rgb(209, 215, 220); color: black;" class="form-select" id="TipoTrabajo" name="TipoTrabajo" required>
-                                <option value="" disabled selected>Seleccionar opción</option>
-                                <option value="0">Trabajador para el gobierno</option>
-                                <option value="1">Nunca trabajó</option>
-                                <option value="2">Trabajador privado</option>
-                                <option value="3">Trabajador por cuenta propia</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="card-body">
+                    <form id="prediction-form" class="">
+                        {% csrf_token %}
+                        <div class="row px-3 py-2"> 
+                            <div class="col-lg-12 ">
+                                <label for="" style="color: black;"><strong>Datos del Paciente</strong></label>
+                                <hr>        
+                            </div> 
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Nombre Paciente</span>
+                                            <input type="text" aria-label="First name" class="form-control" value="{{ paciente.nombre }}" disabled>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Edad:</span>
+                                            <input type="number" aria-label="First name" class="form-control" value="{{ paciente.edad  }}" disabled>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Genero:</span>
+                                            <input type="number" aria-label="First name" class="form-control" value="{{ paciente.genero  }}" disabled>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>                            
+                            <div class="col-lg-12 mt-4">
+                                <label for="" style="color: black;"><strong>Factores de Evaluación</strong></label>
+                                <hr>        
+                            </div> 
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <label for="Hipertension" class="input-group-text">Hipertensión</label>
+                                            <select id="Hipertension" name="Hipertension" class="form-control">
+                                                <option selected>Seleccione...</option>
+                                                <option value="0">No</option>
+                                                <option value="1">Sí</option>
+                                            </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <label for="Cardiopatia" class="input-group-text">Cardiopatía</label>
+                                            <select id="Cardiopatia" name="Cardiopatia" class="form-control">
+                                                <option selected>Seleccione...</option>
+                                                <option value="0">No</option>
+                                                <option value="1">Sí</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <label for="TipoTrabajo" class="input-group-text">Tipo de Trabajo</label>
+                                            <select id="TipoTrabajo" name="TipoTrabajo" class="form-control">
+                                                <option selected>Seleccione...</option>
+                                                <option value="0">Trabajador para el gobierno</option>
+                                                <option value="1">Nunca trabajó</option>
+                                                <option value="2">Trabajador privado</option>
+                                                <option value="3">Trabajador por cuenta propia</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <label for="EstadoFumador" class="input-group-text">Estado Fumador</label>
+                                            <select id="EstadoFumador" name="EstadoFumador" class="form-control">
+                                                <option selected>Seleccione...</option>
+                                                <option value="0">No opina</option>
+                                                <option value="1">Anteriormente fumó</option>
+                                                <option value="2">Nunca fumó</option>
+                                                <option value="3">Fuma</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <span for="Nivel_GlucosaPromedio" class="input-group-text">Glucosa Promedio</span>
+                                            <input type="number" aria-label="First name" class="form-control"  id="Nivel_GlucosaPromedio" name="Nivel_GlucosaPromedio" min="50" max="280">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <span for="ICM" class="input-group-text">Índice de Masa Corporal</span>
+                                            <input type="number" aria-label="First name" class="form-control"  id="ICM" name="ICM"  min="13" max="50">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="result" class="mt-3"></div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-lg-6 col-md-6 col-sm-12"><button type="button" onclick="submitForm()" class="btn" style="width: 100%; background-color: #343a40; font-size: 12px; color: white;"><b>GUARDAR</b></button></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12"><a href="{% url 'home' %}" class="btn" style="width: 100%; background-color: rgb(231, 237, 247); font-size: 12px; color: black;"><b>CANCELAR</b></a></div>
+                                </div>                      
+                            </div>
+                        </div>                           
+                    </form>        
                 </div>
-
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6">
-                        <button style="width: 100%;" type="button" class="btn btn-primary" onclick="validateForm()">Enviar</button>
-                    </div>
-                    <div class="col-6 col-sm-6">
-                        <a style="width: 100%;" type="button" class="btn btn-secondary" href="{% url 'home' %}">Regresar</a>
-                    </div>
-
-                </div>              
-
-            </form>    
-
-
-            <div id="result" class="mt-4"></div>
-
+            </div>
         </div>
     </div>
 </div>
@@ -164,46 +159,48 @@
     {% endif %}
 
     <script>
-        function validateForm() {
-            const form = document.getElementById('prediction-form');
-            let isValid = true;
-            let errorMessage = "";
-
-            // Check each required field
-            const requiredFields = ['Genero', 'Edad', 'TipoTrabajo', 'Hipertension', 'Cardiopatia', 'Nivel_GlucosaPromedio', 'ICM', 'EstadoFumador'];
-            requiredFields.forEach(field => {
-                const element = document.getElementById(field);
-                if (!element.value) {
-                    isValid = false;
-                    errorMessage += `El campo ${element.previousElementSibling.innerText} es obligatorio.<br>`;
-                }
-            });
-
-            const edad = parseFloat(document.getElementById('Edad').value);
-            const glucosa = parseFloat(document.getElementById('Nivel_GlucosaPromedio').value);
-            const icm = parseFloat(document.getElementById('ICM').value);
-
-            if (isNaN(edad) || !Number.isInteger(edad) || edad < 1 || edad > 120) {
-                isValid = false;
-                errorMessage += "La edad debe ser un número entero entre 1 y 120.<br>";
-            }
-            if (isNaN(glucosa) || glucosa < 30 || glucosa > 300) {
-                isValid = false;
-                errorMessage += "El nivel de glucosa debe ser un número entre 30 y 300 mg/dL.<br>";
-            }
-            if (isNaN(icm) || icm < 10 || icm > 100) {
-                isValid = false;
-                errorMessage += "El ICM debe ser un número entre 10 y 100.<br>";
-            }
-
-            if (!isValid) {
-                document.getElementById('result').innerHTML = `<div class="alert alert-danger">${errorMessage}</div>`;
-            } else {
-                submitForm();
-            }
-        }
-
         function submitForm() {
+            // Validación de los campos de entrada
+            const glucosa = parseFloat(document.getElementById('Nivel_GlucosaPromedio').value);
+            const imc = parseFloat(document.getElementById('ICM').value);
+
+            // Validación de los rangos
+            if (glucosa < 50 || glucosa > 280) {
+                alert('El nivel de glucosa promedio debe estar entre 50 y 280.');
+                return;
+            }
+
+            if (imc < 13 || imc > 50) {
+                alert('El índice de masa corporal (IMC) debe estar entre 13 y 50.');
+                return;
+            }
+
+            // Validación de los campos select
+            const hipertension = document.getElementById('Hipertension').value;
+            const cardiopatia = document.getElementById('Cardiopatia').value;
+            const tipoTrabajo = document.getElementById('TipoTrabajo').value;
+            const estadoFumador = document.getElementById('EstadoFumador').value;
+
+            if (hipertension === '') {
+                alert('Debe seleccionar una opción para Hipertensión.');
+                return;
+            }
+
+            if (cardiopatia === '') {
+                alert('Debe seleccionar una opción para Cardiopatía.');
+                return;
+            }
+
+            if (tipoTrabajo === '') {
+                alert('Debe seleccionar una opción para Tipo de Trabajo.');
+                return;
+            }
+
+            if (estadoFumador === '') {
+                alert('Debe seleccionar una opción para Estado Fumador.');
+                return;
+            }
+
             const form = document.getElementById('prediction-form');
             const formData = new FormData(form);
             const data = {};
@@ -211,35 +208,57 @@
                 data[key] = value;
             });
 
-            console.log('Datos a enviar:', data); // Console log para ver los datos
+            console.log('Datos a enviar:', data);
 
-        $.ajax({
-                url: '/api/acv1',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
+            // Obtener el token de autenticación desde localStorage
+            const authToken = localStorage.getItem('token');
+
+            fetch('/api/acv1/create/', {
+                method: 'POST',
                 headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'), // Incluir el token CSRF
+                    'Authorization': `Token ${authToken}`  // Incluir el token de autenticación
                 },
-                success: function(response) {
-                    let prediction = response.prediction[0]; 
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Respuesta de la API:', data);
+
+                    let prediction = data.prediccion;
                     let message;
                     if (prediction === 0) {
-                        message = 'No tiene riesgo de sufrir ACV';
-                        $('#result').html('<div class="alert alert-success"> <b>Predicción: </b>' + message + '</div>');
+                        message = 'Presenta BAJA probabilidad de riesgo de un accidente cerebrovascular (ACV)';
+                        document.getElementById('result').innerHTML = '<div class="alert alert-success"><b>Predicción: </b>' + message + '</div>';
                     } else if (prediction === 1) {
-                        message = 'Tiene riesgo de sufrir ACV';
-                        $('#result').html('<div class="alert alert-danger"> <b>Predicción: </b>' + message + '</div>');
+                        message = 'Presenta ALTA probabilidad de riesgo de un accidente cerebrovascular (ACV)';
+                        document.getElementById('result').innerHTML = '<div class="alert alert-danger"><b>Predicción: </b>' + message + '</div>';
                     } else {
                         message = 'Respuesta inesperada';
-                        $('#result').html('<div class="alert alert-info"> <b>Predicción: </b>' + message + '</div>');
+                        document.getElementById('result').innerHTML = '<div class="alert alert-info"><b>Predicción: </b>' + message + '</div>';
                     }
-                    
-                },
-                error: function(xhr) {
-                    $('#result').html('<div class="alert alert-danger">Error: ' + xhr.responseJSON.error + '</div>');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').innerHTML = '<div class="alert alert-danger">Error: ' + error.message + '</div>';
+                });
+        }
+
+        // Función para obtener el token CSRF
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
-            }); 
+            }
+            return cookieValue;
         }
     </script>
 

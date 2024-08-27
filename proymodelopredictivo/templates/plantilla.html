@@ -75,9 +75,8 @@
 			<div class="m-header" >
 				<a href="{% url 'home' %}" class="b-brand d-flex align-items-center ">
 					<!-- ========   change your logo hear   ============ -->
-          <img style="height: 50px; width: 50px;" src="{% static 'login/images/logo_redondeado.png'%}" alt="" class="logo logo-lg ml-3">
-          <label for="" class="mt-2 ml-3"><b style="font-size: 1.2em; color: #fff;">NEURO IA</b></label>
-					<!-- <img src="{% static '/assets/images/logo-sm.svg' %}" alt="" class="logo logo-sm"> -->
+					<img style="height: 50px; width: 50px;" src="{% static 'login/images/logo_redondeado.png'%}" alt="" class="logo logo-lg ml-3">
+					<label for="" class="mt-2 ml-3"><b style="font-size: 1.2em; color: #fff;">NEURO IA</b></label>
 				</a>
 			</div>
 			<div class="navbar-content">
@@ -102,10 +101,10 @@
 						<a href="{% url 'listar_pacientes' %}" class="pc-link "><span class="pc-micon"><i class="fa-solid fa-hospital-user"></i></i></span><span class="pc-mtext"> Pacientes</span></a>
 					</li>					
           <li class="pc-item pc-caption">
-						<label>DIAGNÓSTICOS</label>
+						<label>DIAGNÓSTICOS</label>prediction_form
 					</li>
 					<li class="pc-item">
-						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-sharp fa-solid fa-list-check"></i></span><span class="pc-mtext">Diagnóstico de ACV</span></a>
+						<a href="{% url 'prediction_form' %}" class="pc-link "><span class="pc-micon"><i class="fa-sharp fa-solid fa-list-check"></i></span><span class="pc-mtext">Diagnóstico de ACV</span></a>
 					</li>					
           <li class="pc-item">
 						<a href="" class="pc-link "><span class="pc-micon"><i class="fa-sharp fa-solid fa-list-check"></i></span><span class="pc-mtext">Estilo de Vida</span></a>
