@@ -31,7 +31,7 @@ def chatbot_response(request):
         chatbot_service = ChatbotService(openai_api_key=OPENAI_API_KEY,paciente=paciente,diagnosticos=diagnosticos)
         if "imagen" in user_input.lower() or "image" in user_input.lower():
             image_url = chatbot_service.generate_image(prompt="Imagen del cerebro humano afectado por ACV")
-            response_message = f"Aquí tienes la imagen que solicitaste: {image_url}"
+            response_message = f"{image_url}"
         else:
             response_message = chatbot_service.get_response(user_input)
             chatbot_service.save_message(user_id=paciente.idPaciente, role='user', content=user_input)
